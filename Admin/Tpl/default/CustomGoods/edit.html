@@ -72,20 +72,21 @@ function getGoodsSendTypeInfo()
 				<input type="text" name="cityName" size="30" value="{$vo.cityName}" maxlength="150"/>
 			</div>			
 			<div class="unit">
+				
 				<label>发货类型：</label>
-				<select id="sendSortID">
+				<select name="sendSortID" id="sendSortID">
 						<option value="">--请选择--</option>
-					<volist name="SendSortList" id="SendSortVo">
-						<option value="{$SendSortVo.id}">{$SendSortVo.name}</option>
-					</volist>
-				</select>			
-				<label>发货方式：</label>
-				<select name="sendSortID" id="sendTypeID">
-						<option value="">--请选择--</option>
-					<volist name="SendGoodsTypeList" id="SendGoodsTypeVo">
-						<option <eq name="vo.sendSortID" value="$SendGoodsTypeVo.id" >selected</eq> value="{$SendGoodsTypeVo.id}">{$SendGoodsTypeVo.name}</option>
+					<volist name="SendGoodsSortList" id="SendGoodsSortVo">
+						<option <eq name="vo.sendSortID" value="$SendGoodsSortVo.id" >selected</eq> value="{$SendGoodsSortVo.id}">{$SendGoodsSortVo.name}</option>
 					</volist>
 				</select>
+				<label>发货方式：</label>
+				<select  name="sendTypeID" id="sendTypeID">
+						<option value="">--请选择--</option>
+					<volist name="SendGoodsTypeList" id="SendGoodsTypeVo">
+						<option <eq name="vo.sendTypeID" value="$SendGoodsTypeVo.id" >selected</eq> value="{$SendGoodsTypeVo.id}">{$SendGoodsTypeVo.name}</option>
+					</volist>
+				</select>			
 			</div>
 			<div class="unit">
 				<label>发货周期：</label>

@@ -441,6 +441,7 @@ class CheckOutPrintAction extends CommonAction
         }
     }
 
+
 	function getFieldExternFieldStr()
 	{
 		$externFieldStr .= '
@@ -451,6 +452,19 @@ class CheckOutPrintAction extends CommonAction
 			';
 		return $externFieldStr;
 	}
+
+	
+	public function allPrint()
+	{
+		$PostGoods = D("PostGoods");
+
+		$map['isPrintCheckOut'] = 0;
+		$map['isCheckOut'] = 1;
+		$PostGoodsList = $PostGoods->where($map)->field('id')->select();
+
+
+	}
+
 
 	public function prePrint()
 	{

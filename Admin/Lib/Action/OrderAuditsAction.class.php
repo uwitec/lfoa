@@ -254,15 +254,24 @@ class OrderAuditsAction extends CommonAction
                 $HeaderStr .= "单位" . "\t";
                 $HeaderStr .= "班级" . "\t";
                 $HeaderStr .= "手机" . "\t";
+                $HeaderStr .= "传真" . "\t";
+                $HeaderStr .= "备用电话" . "\t";
                 $HeaderStr .= "地址" . "\t";
+                $HeaderStr .= "邮编" . "\t";
                 $HeaderStr .= "报刊" . "\t";
                 $HeaderStr .= "份数" . "\t";
                 $HeaderStr .= "起月" . "\t";
                 $HeaderStr .= "止月" . "\t";
+                $HeaderStr .= "磁带数" . "\t";
+                $HeaderStr .= "答案数" . "\t";
+                $HeaderStr .= "是否薄弱县" . "\t";
                 $HeaderStr .= "发货类型" . "\t";
 				$HeaderStr .= "发货方式" . "\t";
 				$HeaderStr .= "发货周期" . "\t";
+         $HeaderStr .= "备注" . "\t";
                 $HeaderStr .= "付款人" . "\t";
+                $HeaderStr .= "保存时间" . "\t";
+                $HeaderStr .= "提交时间" . "\t";
                 $HeaderStr .= "是否审核" . "\t\n";
                 
                 $ContentStr = '';
@@ -279,16 +288,24 @@ class OrderAuditsAction extends CommonAction
                     $ContentStr .= get_custom_unit_name($vo['schoolID']) . "\t";
                     $ContentStr .= $vo['class'] . "\t";
                     $ContentStr .= $vo['recTelphone'] . "\t";
+                    $ContentStr .= $vo['recFax'] . "\t";
+                    $ContentStr .= $vo['recSpareTel'] . "\t";
                     $ContentStr .= $vo['recAddress'] . "\t";
+                    $ContentStr .= $vo['zipCode'] . "\t";
                     $ContentStr .= get_magazine_name($vo['postCode']) . "\t";
                     $ContentStr .= $vo['orderNum'] . "\t";
                     $ContentStr .= $vo['beginOrderDate'] . "\t";
                     $ContentStr .= $vo['endOrderDate'] . "\t";
+                    $ContentStr .= $vo['tapeNum'] . "\t";
+                    $ContentStr .= $vo['answerNum'] . "\t";
+                    $ContentStr .= $vo['weakCity'] . "\t";
                     $ContentStr .= get_send_goods_sort_name($vo['sendGoodsSortID']) . "\t";
 					$ContentStr .= get_send_goods_type_name($vo['sendGoodsTypeID']) . "\t";
 					$ContentStr .= get_send_order_cyle_name($vo['sendCyleID']) . "\t";
+					 $ContentStr .= $vo['memo'] . "\t";
                     $ContentStr .= $vo['payPerson'] . "\t";
-                    
+                    $ContentStr .= date('Y-m-d H:i:s', $vo['insertTime']) . "\t";
+                    $ContentStr .= date('Y-m-d H:i:s', $vo['commitTime']) . "\t";
                     if ($vo['isChecked'] == 1) {
                         $ContentStr .= "是\t\n";
                     } else {

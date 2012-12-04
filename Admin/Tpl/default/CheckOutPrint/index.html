@@ -162,7 +162,8 @@ $(function()
 
 		<div class="panelBar">			
 			<ul class="toolBar">
-				<li><a id="checkOutPrint" class="add" href="__URL__/prePrint/id/{id}" target="dialog" width="900" height="500"  mask="true" ><span>开始打印</span></a></li>				
+				<li><a id="checkOutPrint" class="add" href="__URL__/prePrint/id/{id}" target="dialog" width="900" height="500"  mask="true" ><span>开始打印</span></a></li>		
+				<li><a id="checkOutPrintAll" class="add" href="__URL__/allPrint/" target="dialog" width="900" height="500"  mask="true" ><span>全部打印</span></a></li>
 				<li><a id="checkOutCancelPrint" class="delete" href="__URL__/cancelPrint/id/{id}" target="ajaxTodo"  mask="true" title="你确定要取消打印吗？" warn="请选择一条记录"><span>取消打印</span></a></li>
 				<li><a class="icon" href="__URL__/export/{$SearchSql}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>	
 			</ul>

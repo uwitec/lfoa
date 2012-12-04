@@ -309,7 +309,8 @@ function getGoodsInfo()
 			
 			$("input[name='classArr[]']")[currentRowIndex].value = json['className'];
 			$("input[name='cityNameArr[]']")[currentRowIndex].value = json['cityName'];
-			$("select[name='sendGoodsTypeIDArr[]']")[currentRowIndex].value = json['sendSortID'];
+			$("select[name='sendGoodsSortIDArr[]']")[currentRowIndex].value = json['sendSortID'];
+			$("select[name='sendGoodsTypeIDArr[]']")[currentRowIndex].value = json['sendTypeID'];
 			$("select[name='provinceIDArr[]']")[currentRowIndex].value = json['provinceID'];
 			$("select[name='schoolIDArr[]']")[currentRowIndex].value = json['schoolID'];
 			$("input[name='memoArr[]']")[currentRowIndex].value = json['memo'];

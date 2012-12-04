@@ -93,8 +93,14 @@ class StockStatisticsAction extends CommonAction
 
 	private function getConditionModel(&$model)
 	{
-		$model->table(array('tb_magazine' => 'magazine'))->
+		$EmployeeId = get_employeeid($_SESSION[C('USER_AUTH_KEY')]);
+		//$model->table(array('tb_magazine' => 'magazine'))->
+		//join('tb_magazine_terrm magazine_terrm on magazine_terrm.postCode =  magazine.postCode')->
+		//join('tb_employee_newspaper employee_newspaper on magazine.postCode=employee_newspaper.postCode and employee_newspaper.personID="'.$EmployeeId.'"');
+		$model->table(array('tb_employee_newspaper' => 'employee_newspaper'))->		
+		join('tb_magazine magazine on magazine.postCode=employee_newspaper.postCode and employee_newspaper.personID="'.$EmployeeId.'"')->
 		join('tb_magazine_terrm magazine_terrm on magazine_terrm.postCode =  magazine.postCode');
+		
 		//->join('tb_magazine magazine on magazine.postCode =  magazine_terrm.postCode')
 	//join('tb_stock_input stock_input on stock_input.termID = magazine_terrm.id')->
 	//join('tb_stock_output stock_output on stock_output.termID = magazine_terrm.id')	
