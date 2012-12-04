@@ -1,0 +1,32 @@
+<div class="page">
+	<div class="pageHeader">
+		统计信息
+	</div>
+	<div class="pageContent">
+		<table class="table" width="100%" layoutH="400">
+			<thead>
+			<tr>
+				<th width="80">报刊名称</th>
+				<th width="60">订单总数</th>
+				<th width="60">已审核数</th>
+				<th width="60">未审核数</th>
+				<th width="60">已派发数</th>
+				<th width="60">未派发数</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="List">
+				<tr target="id" rel="{$vo.id}">
+					<td>{$vo.postCodeName}</td>
+					<td>{$vo.orderNum}</td>
+					<td>{$vo.sumChecked}</td>
+					<td style="color:red; font-size:18px; font-weight:blod;">{$vo.sumUnChecked}</td>
+					<td>{$vo.sumSend}</td>
+					<td>{$vo.sumUnSend}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+	</div>	
+</div>
+

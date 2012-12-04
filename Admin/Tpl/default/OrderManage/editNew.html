@@ -1,0 +1,360 @@
+<script language="javascript">
+$(function(){ 
+
+	$('.editNewTr').each(function(){
+		var tr2 = $(this);
+		$(this).bind("click",function()   
+		{
+			var tr = $(this);			
+
+			$('.editNewTr').each(function(){
+				var tr1 = $(this);
+				tr1.css("background-color", "#FFFFFF");
+			})
+
+			currentRowIndex = tr.find("td").get(0).innerHTML - 1;
+			tr.css("background-color", "#4bf91c");
+		});		
+		currentRowIndex = tr2.find("td").get(0).innerHTML - 1;
+
+		bindEvent();
+	});
+
+	var gRowNum = 1;
+    $("#addRow").click(function() {
+　　　　//复制一行
+         var tr = $("#OrderList>tbody>tr:first").clone();
+		 var index = gRowNum;
+         tr.find("td").get(0).innerHTML = ++gRowNum;
+		 tr.find("td").eq(1).children('input').attr("checked", false);
+		 tr.find("td").eq(1).children('input').attr("name", "isSingleArr["+index+"]");
+		 tr.find("td").eq(2).children('select').attr("value", $("#OrderList>tbody>tr:first").find("td").eq(2).children('select').attr("value"));
+		 tr.find("td").eq(3).children('input').attr("value", "");	
+
+		 tr.find("td").eq(16).children('select').attr("value", $("#OrderList>tbody>tr:first").find("td").eq(14).children('select').attr("value"));
+
+		tr.find("td").eq(18).children('input').attr("name", "isWeakCityArr["+index+"]");
+
+		 tr.find("td").eq(19).children('select').attr("value", $("#OrderList>tbody>tr:first").find("td").eq(16).children('select').attr("value"));
+
+		 tr.find("td").eq(20).children('select').attr("value", $("#OrderList>tbody>tr:first").find("td").eq(17).children('select').attr("value"));
+
+		 tr.find("td").eq(21).children('select').attr("value", $("#OrderList>tbody>tr:first").find("td").eq(18).children('select').attr("value"));
+
+		 tr.find("td").eq(23).children('select').attr("value", $("#OrderList>tbody>tr:first").find("td").eq(20).children('select').attr("value"));
+		 tr.find("td").eq(24).children('input').attr("name", "isSchoolArr["+index+"]");
+
+         tr.show();
+         tr.appendTo("#OrderList>tbody");
+
+		 $('.editNewTr').each(function(){
+			var tr2 = $(this);
+			$(this).bind("click",function()   
+			{
+				var tr = $(this);
+				$('.editNewTr').each(function(){
+					var tr1 = $(this);
+					tr1.css("background-color", "#FFFFFF");
+				})
+				
+				currentRowIndex = tr.find("td").get(0).innerHTML - 1;
+				tr.css("background-color", "#4bf91c");
+			});	
+			
+			currentRowIndex = tr2.find("td").get(0).innerHTML - 1;
+			bindEvent();		/* 增加一行后重新绑定相关事件 */
+		 });		 
+      });
+
+	 $("#removeRow").click(function() {
+		var i = 1;
+		if (currentRowIndex == 0)
+		{
+			return 0;
+		}
+		$("#OrderList>tbody>tr").eq(currentRowIndex).remove();
+		gRowNum = gRowNum - 1;
+		$('.orderTr').each(function(){
+			var tr3 = $(this);
+			tr3.find("td").get(0).innerHTML = i;
+			i++;
+		 });
+
+		bindEvent();		/* 删除一行后重新绑定相关事件 */
+      });
+		
+	bindEvent();			/* 第一次要绑定相关事件 */
+
+	/* 内容保存 */
+	$("#contentSave").click(function()
+	{
+		$("#isChecked").attr("value",'2');
+		$("#orderManageEditNewForm").submit();
+	});
+});
+
+/* 当前修改的table的编号 全局变量
+ * 点击某一列时，currentRowIndex为该列的编号
+ * 新删除一列时，currentRowIndex为新编号的列的编号
+ * 当前的操作都是基于currentRow
+ */
+var currentRowIndex = 0;
+
+function bindEvent()
+{
+	$('.editNewTr').each(function(i){
+		$(this).find("td").get(0).innerHTML = i + 1;
+		
+		$(this).bind("click",function()   
+		{			
+			var tr = $(this);
+			currentRowIndex = tr.find("td").get(0).innerHTML - 1;
+		});	
+	});
+}
+
+</script>
+
+<div class="page">
+	<div class="pageContent">
+<style type="text/css">
+.BlockHeader
+{
+	text-align:left;
+	font-size:14;
+	font-weight:bold; 
+	height:15px
+}
+.pageFormContent label {
+float: left;
+width: 80px;
+padding: 0 5px;
+line-height: 21px;
+}
+</style>
+	
+	<form method="post" id="orderManageEditNewForm" action="__URL__/addEditNew/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="insertPerson" value="{$insertPerson}"/> 
+		<input type="hidden" name="isChecked" id="isChecked" value="0"/> 
+		<div class="pageFormContent" layoutH="58">
+			<p>
+				<span  class="BlockHeader">状态信息</span>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>状态：</label>
+				<input name="orderStatus" type="text" size="18" value="{$vo.orderStatus}" readonly="readonly"/>
+			</p>
+			<p>
+				<label>业务经理：</label>
+				<select name="employeeID" readonly="readonly">
+					<option selected value="{$EmpoyeeId}">{$EmployeeName}</option>
+				</select>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<span  class="BlockHeader">订单信息</span>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>签单日期：</label>
+				<input type="text" name="orderTime" value="{$vo.orderTime|date='Y-m-d', ###}" class="date" size="18"/>
+				<a class="inputDateButton" href="javascript:;">选择</a>
+			</p>
+			<p>
+				<label>订单编号：</label>
+				<input type="text" name="contractID" class="required" readonly="readonly" value="{$contractID}" size="18"/>
+			</p>
+			<p>
+				<label>订单来源：</label>
+				<select name="magazineOriginNameID" >
+					<option value="">--请选择--</option>
+				<volist name="MagazineOriginList" id="magazineOriginVo">
+					<option <eq name="vo.magazineOriginNameID" value="$magazineOriginVo['id']" >selected</eq> value="{$magazineOriginVo['id']}">{$magazineOriginVo['name']}</option>
+				</volist>
+				</select>
+			</p>
+			<p>
+				<label>订单批次：</label>
+				<input name="batch" type="text" value="{$vo.batch}" size="18"/>
+			</p>
+			
+			<p>
+				<label>付款日期：</label>
+				<input type="text" name="payTime" value="{$vo.payTime|date='Y-m-d', ###}" class="date"  size="18" />
+				<a class="inputDateButton" href="javascript:;">选择</a>
+			</p>
+			<p>
+				<label>付款人：</label>
+				<input name="payPerson" type="text" size="30" value="{$vo.payPerson}"/>
+			</p>
+			<p>				
+				<label>付款方式：</label>
+				<select name="payType" >
+					<option value="">--请选择--</option>
+				<volist name="PayTypeList" id="PayTypeVo">
+					<option <eq name="vo.payType" value="$PayTypeVo['id']" >selected</eq> value="{$PayTypeVo['id']}">{$PayTypeVo['name']}</option>
+				</volist>
+				</select>
+				<span style="display:inline;">
+					<input type="checkbox" name="isPay" <eq name="vo.isPay" value='1'> checked </eq> value="1"/>
+					是否付款
+				</span>
+			</p>
+			
+			<div class="divider"></div>
+			<table width="100%" id="OrderList">
+				<thead>
+					<tr height="40">
+						<th width="60">编号</th>			<!-- 0 -->
+						<th width="80" style="display:none;">单期</th>			<!-- 1 -->
+						<th width="80">报刊名称</th>		<!-- 2 -->
+						<th width="60">份数</th>			<!-- 3 -->
+						<th width="60">年度</th>			<!-- 4 -->						
+						<th width="60">起月<!--(单期月)--></th>			<!-- 5 -->
+						<th width="60">止月</th>			<!-- 6 -->
+						<th width="60">磁带数</th>		<!-- 7 -->
+						<th width="60">答案数</th>		<!-- 8 -->
+						<th width="80" style="display:none;">期数</th>			<!-- 9 -->						
+						<th width="80">收货人</th>		<!-- 10 -->
+						<th width="80">电话</th>			<!-- 11 -->
+						<th width="80">手机</th>			<!-- 12 -->
+						<th width="80">备用电话</th>			<!-- 13 -->
+						<th width="80">传真</th>			<!-- 14 -->
+						<th width="80" style="display:none;">包装方式</th>		<!-- 15 -->
+						<th width="80">省份</th>			<!-- 16 -->
+						<th width="80">城市</th>			<!-- 17 -->
+						<th width="80">是否薄弱县</th>	<!-- 18 -->
+						<th width="80">发货类型</th>		<!-- 19 -->
+						<th width="80">发货方式</th>		<!-- 20 -->
+						<th width="80">发货周期</th>		<!-- 21 -->
+						<th width="80">收货地址</th>		<!-- 22 -->
+						<th width="100">单位</th>		<!-- 23 -->
+						<th width="80">是否学校</th>		<!-- 24 -->
+						<th width="80">班级</th>			<!-- 25 -->
+						<th width="80">邮编</th>			<!-- 26 -->
+						<th width="100">备注</th>		<!-- 27 -->
+					</tr>
+				<thead>
+				<tbody>
+					<volist name="orderList" id="orderVo" key="key">
+					<tr class="editNewTr">
+						<td>
+							{$key + 1}	 						
+						</td>
+						<td style="display:none;"><input type="checkbox" name="isSingleArr[]" <eq name="orderVo.isSingle" value='1'> checked </eq> value="1" class="isSingle"/></td>
+						<td>
+							<input type="hidden" name="idArr[]" value="{$orderVo.id}"/>
+							<select name="postCodeArr[]" class="required">
+								<option value="">--请选择--</option>
+							<volist name="MagazineList" id="MagazineVo">
+								<option <eq name="orderVo.postCode" value="$MagazineVo['postCode']" >selected</eq> value="{$MagazineVo['postCode']}">{$MagazineVo['name']}</option>
+							</volist><font color="red">*</font>
+							</select>
+						</td>
+						<td><input name="orderNumArr[]" type="text" value="{$orderVo.orderNum}" size="10" class="required" /></td>
+						<td><input name="orderYearArr[]" type="text" value="{$orderVo.orderYear}" size="10" class="digits" /></td>						
+						<td><input name="beginOrderDateArr[]" type="text" value="{$orderVo.beginOrderDate}"  size="10" class="digits"/></td>
+						<td><input name="endOrderDateArr[]" type="text" value="{$orderVo.endOrderDate}" size="10" class="digits"/></td>
+						<td>
+							<input name="tapeNumArr[]" type="text" size="10" value="{$orderVo.tapeNum}"/>
+						</td>
+						<td>
+							<input name="answerNumArr[]" type="text" size="10" value="{$orderVo.answerNum}"/>
+						</td>
+						<td style="display:none;">
+							<select name="termIDArr[]" class="termID">
+								<option value="">--请选择--</option>
+							<volist name="MagazineTerrmList" id="MagazineTerrmVo">
+								<option <eq name="orderVo.termID" value="$MagazineTerrmVo['id']" >selected</eq> value="{$MagazineTerrmVo['id']}">{$MagazineTerrmVo['name']}</option>
+							</volist>
+							</select>
+						</td>
+						<td><input name="recPeopleArr[]" type="text" size="15" value="{$orderVo.recPeople}"/></td>
+						<td><input name="recTelArr[]" type="text" size="15" value="{$orderVo.recTel}"/></td>
+						<td><input name="recTelphoneArr[]" type="text" size="15" value="{$orderVo.recTelphone}"/></td>
+						<td><input name="recSpareTelArr[]" type="text" size="15"  value="{$orderVo.recSpareTel}"/></td>
+						<td><input name="recFaxArr[]" type="text" size="15"  value="{$orderVo.recFax}"/></td>
+						<td style="display:none;"><input type="text" size="15" value="{$orderVo.packetType}"/></td>
+						<td>
+							<select name="provinceIDArr[]">
+								<option value="">--请选择--</option>
+							<volist name="ProvinceList" id="ProvinceVo">
+								<option <eq name="orderVo.provinceID" value="$ProvinceVo['id']" >selected</eq> value="{$ProvinceVo['id']}">{$ProvinceVo['name']}</option>
+							</volist>
+							</select>
+						</td>
+						<td>
+							<input name="cityNameArr[]" type="text" size="15"  value="{$orderVo.cityName}"/>
+						</td>
+						<td>	
+							<input type="checkbox" name="isWeakCityArr[{$k - 1}]" value="1"  <eq name="orderVo.weakCity" value='1'> checked </eq>/>
+						</td>
+						<td>
+							<select name="sendGoodsSortIDArr[]" class="sendGoodsSort">
+								<option value="">--请选择--</option>
+							<volist name="SendGoodsSortList" id="SendGoodsSortVo">
+								<option <eq name="orderVo.sendGoodsSortID" value="$SendGoodsSortVo['id']" >selected</eq> value="{$SendGoodsSortVo['id']}">{$SendGoodsSortVo['name']}</option>
+							</volist>
+							</select>
+						</td>
+						<td>
+							<select name="sendGoodsTypeIDArr[]">
+								<option value="">--请选择--</option>
+							<volist name="SendGoodsTypeList" id="SendGoodsTypeVo">
+								<option <eq name="orderVo.sendGoodsTypeID" value="$SendGoodsTypeVo['id']" >selected</eq> value="{$SendGoodsTypeVo['id']}">{$SendGoodsTypeVo['name']}</option>
+							</volist>
+							</select>
+						</td>
+						<td>
+							<select name="sendCyleIDArr[]">
+								<option value="">--请选择--</option>
+							<volist name="SendOrderCyleList" id="SendOrderCyleVo">
+								<option <eq name="orderVo.sendCyleID" value="$SendOrderCyleVo['id']" >selected</eq> value="{$SendOrderCyleVo['id']}">{$SendOrderCyleVo['name']}</option>
+							</volist>
+							</select>
+						</td>
+						<td>
+							<input name="recAddressArr[]" type="text" size="15" value="{$orderVo.recAddress}"/>
+						</td>
+						<td>
+							<select name="schoolIDArr[]" class="schoolID" width="50">
+								<option value="">--请选择--</option>
+							<volist name="SchoolList" id="SchoolVo">
+								<option <eq name="orderVo.schoolID" value="$SchoolVo['id']" >selected</eq> value="{$SchoolVo['id']}">{$SchoolVo['name']}</option>
+							</volist>
+							</select>
+						</td>							
+						<td>	
+							<input type="checkbox" name="isSchoolArr[]" value="1" class="isSchool"  <eq name="orderVo.isSchool" value='1'> checked </eq>/>
+						</td>
+						<td>
+							<input name="classArr[]" type="text" size="15" value="{$orderVo.class}"/>
+						</td>
+						<td>
+							<input name="zipCodeArr[]" type="text" size="15" value="{$orderVo.zipCode}"/>
+						</td>						
+						<td>
+							<input name="memoArr[]" type="text" size="15"  value="{$orderVo.memo}"/>
+						</td>
+					</tr>
+				</volist>
+				
+				</tbody>
+			</table>			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="removeRow" type="button">删除行</button></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="addRow" type="button">添加新行</button></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"><button id="contentSave" type="button">保存</button></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" id="close" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

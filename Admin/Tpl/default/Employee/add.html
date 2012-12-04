@@ -1,0 +1,89 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>姓名：</label>
+				<input type="text" class="required" size="30" maxlength="20" name="employeeName" />
+			</div>
+			<div class="unit">
+				<label>年龄：</label>
+				<input type="text" size="30" maxlength="20" name="age" />
+			</div>
+			<div class="unit">
+				<label>职务：</label>
+				<select name="dutyID">
+						<option value="">--请选择--</option>
+					<volist name="DutyList" id="DutyVo">
+						<option value="{$DutyVo.id}">{$DutyVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>性别：</label>
+				<select name="sex">
+					<option value="">--请选择--</option>
+					<option value="1">男</option>
+					<option value="0">女</option>
+				</select>
+			</div>
+			<div class="unit">
+				<label>部门：</label>
+				<select name="deptID">
+						<option value="">--请选择--</option>
+					<volist name="Departmentlist" id="DepartmentVo">
+						<option value="{$DepartmentVo.id}">{$DepartmentVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>身份证：</label>
+				<input type="text" class="alphanumeric" name="cardID" size="30" maxlength="100"/>
+			</div>
+			<div class="unit">
+				<label>通讯地址：</label>
+				<input type="text" name="address" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>电话号码1：</label>
+				<input type="text" name="telphone1" class="phone" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>电话号码2：</label>
+				<input type="text" name="telphone2" class="phone" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>内部编号：</label>
+				<input type="text" name="employeeCode" class="digits"  size="30" maxlength="100"/>
+			</div>
+			<div class="unit">
+				<label>省份：</label>
+				<select name="provinceID">
+						<option value="">--请选择--</option>
+					<volist name="ProvinceList" id="ProvinceVo">
+						<option value="{$ProvinceVo.id}">{$ProvinceVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>是否是系统用户：</label>
+				<select name="isSystemUser">
+					<option value="">--请选择--</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

@@ -1,0 +1,37 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>区域名：</label>
+				<input type="text" class="required" size="30" maxlength="20" name="name" value="{$vo.name}" />
+			</div>
+			<div class="unit">
+				<label>区域名全称：</label>
+				<input type="text" size="30" maxlength="20" name="longname" value="{$vo.longname}" />
+			</div>
+			<div class="unit">
+				<label>所属区域：</label>
+				<select name="areaID">
+					<option value="">--请选择--</option>
+				<volist name="AreaList" id="AreaVo">
+					<option <eq name="vo.areaID" value="$AreaVo.id" >selected</eq>
+					value="{$AreaVo.id}">{$AreaVo.name}</option>
+				</volist>
+				</select>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

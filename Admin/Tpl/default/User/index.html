@@ -1,0 +1,80 @@
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="account" value="{$_REQUEST.account}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>用户名：</label>
+					<input type="text" name="account" value="{$_REQUEST.account}" size="10"/>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<!-- <li><a class="add" href="__URL__/add" target="dialog" width="590" height="380" mask="true"><span>新增</span></a></li> -->
+				<li><a class="edit" href="__URL__/edit/id/{sid_user}" target="dialog" width="590" height="380"  mask="true" warn="请选择一条记录"><span>编辑</span></a></li>
+				<li><a class="delete" href="__URL__/foreverdelete/id/{sid_user}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>
+				<li class="line">line</li>
+				<li><a class="icon" href="__URL__/password/id/{sid_user}" target="dialog" mask="true" warn="请选择一条记录"><span>修改密码</span></a></li>
+			</ul>
+		</div>
+
+		<table class="table" width="100%" layoutH="140">
+			<thead>
+			<tr>
+				<th width="60">编号</th>
+				<th width="100">用户名</th>
+				<th width="100">真实姓名</th>
+				<th>Email</th>
+				<th>职务</th>
+				<th>所属角色</th>
+				<th width="100">添加时间</th>
+				<th width="130">上次登录</th>
+				<th width="80">登录次数</th>
+				<th width="110">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="sid_user" rel="{$vo.id}" <if condition="$vo.status eq 0">class="rowRed"</if>>
+					<td>{$vo.id}</td>
+					<td>{$vo.account}</td>
+					<td>{$vo.userName}</td>
+					<td>{$vo.email}</td>
+					<td>{$vo.employeeID|get_department_name_by_employeeid}</td>
+					<td>{$vo.id|get_role_name}</td>
+					<td><if condition="$vo.create_time neq 0">{$vo.create_time|date="Y-m-d",###}</if></td>
+					<td><if condition="$vo.last_login_time neq 0">{$vo.last_login_time|date="Y-m-d H:i:s",###}</if></td>
+					<td>{$vo.login_count}</td>
+					<td>{$vo.status|show_status=$vo['id']} &nbsp;<a href="__URL__/magazine/id/{$vo.employeeID}" target="dialog" mask="true" width="400" height="550" title="{$vo.name} 报刊列表 ">报刊列表</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

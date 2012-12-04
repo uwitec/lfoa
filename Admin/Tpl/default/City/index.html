@@ -1,0 +1,124 @@
+<script language="javascript">
+$(function(){ 
+    getSelectVal(); 
+    $("#areaID").change(function(){ 
+        getSelectVal(); 
+    }); 
+});
+
+function getSelectVal()
+{ 
+	$.getJSON(
+		"__URL__/getSelect/type/1/areaID/"+$("#areaID").val(),
+		function(json)
+		{         
+			var provinceID = $("#provinceID");         
+			$("option",provinceID).remove();   
+			$.each(json,function(index,array)
+			{             
+			
+				var option = "<option value='"+array['id']+"'>"+array['title']+"</option>";             
+				provinceID.append(option);         
+			});     
+		}
+	); 
+} 
+</script>
+
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="name" value="{$_REQUEST.name}"/>
+	<input type="hidden" name="areaID" value="{$_REQUEST.areaID}"/>
+	<input type="hidden" name="provinceID" value="{$_REQUEST.provinceID}"/>
+</form>
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>城市：</label>
+					<input type="text" name="name" value="{$_REQUEST.name}" size="10"/>
+				</li>
+				<li sytle="width:200px">
+					<label>所属区域：</label>
+					<select name="areaID" id="areaID">
+					<option value="">--请选择--</option>
+					<volist name="AreaList" id="AreaVo">
+						<option <eq name="_REQUEST.areaID" value="$AreaVo.id" >selected</eq>
+						value="{$AreaVo.id}">{$AreaVo.name}</option>
+					</volist>
+					</select>
+				</li>
+				<li>
+					<label>所属省份：</label>
+					<select name="provinceID" id="provinceID">
+						<option value="">--请选择--</option>
+					<volist name="ProvinceList" id="ProvinceVo">
+						<option <eq name="_REQUEST.provinceID" value="$ProvinceVo.id" >selected</eq>
+						value="{$ProvinceVo.id}">{$ProvinceVo.name}</option>
+					</volist>
+					</select>
+				</li>				
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add" target="dialog" width="400" height="200" mask="true"><span>新增</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{id}" target="dialog" width="400" height="200"  mask="true" warn="请选择一条记录"><span>编辑</span></a></li>
+				<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<li><a class="delete" href="__URL__/foreverdelete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>
+				<else />
+				<li><a class="delete" href="__URL__/delete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>
+				</if>
+			</ul>
+		</div>
+
+		<table class="table" width="100%" layoutH="140">
+			<thead>
+			<tr>
+				<th width="50">编号</th>
+				<th width="80">城市名称</th>
+				<th width="150">城市全称</th>
+				<th width="80">所属省份</th>
+				<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<th width="60">状态</th>
+				</if>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td>{$vo.id.}</td>
+					<td>{$vo.name}</td>
+					<td>{$vo.longname}</td>
+					<td>{$vo.provinceID|get_province_name}</td>
+					<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+					<td><if condition="($vo.status neq '-1')">正常<else/><a callback="navTabAjaxMenu" target="ajaxTodo" href="__URL__/recycle/id/{$vo.id.}/navTabId/{$Think.const.MODULE_NAME}"><font color="red">还原</font></a></if></td>
+					</if>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

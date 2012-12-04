@@ -1,0 +1,23 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	    <input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>印数：</label>
+				<input type="text" class="required" size="30" maxlength="20" name="stockNum" value="{$vo.stockNum}"/>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

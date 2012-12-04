@@ -1,0 +1,57 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>方式名称：</label>
+				<input type="text" class="required" size="30" maxlength="20" name="name" value="{$vo.name}" />
+			</div>
+			<div class="unit">
+				<label>单位全称：</label>
+				<input type="text" size="30" maxlength="20" name="longname" value="{$vo.longname}" />
+			</div>
+			<div class="unit">
+				<label>单位电话1：</label>
+				<input type="text" size="30" maxlength="20" name="telphone1" value="{$vo.telphone1}" />
+			</div>
+			<div class="unit">
+				<label>单位电话2：</label>
+				<input type="text" size="30" maxlength="20" name="telphone2" value="{$vo.telphone2}" />
+			</div>
+			<div class="unit">
+				<label>单位电话3：</label>
+				<input type="text" size="30" maxlength="20" name="telphone3" value="{$vo.telphone3}" />
+			</div>
+			<div class="unit">
+				<label>单位地址：</label>
+				<input type="text" size="30" maxlength="20" name="address" value="{$vo.address}" />
+			</div>
+			<div class="unit">
+				<label>邮政编码：</label>
+				<input type="text" size="30" maxlength="20" name="postCode" value="{$vo.postCode}" />
+			</div>
+			<div class="unit">
+				<label>发货类型：</label>
+				<select name="sendGoodsSortID">
+					<option value="">--请选择--</option>
+				<volist name="SendGoodsSortList" id="SendGoodsSortVo">
+					<option <eq name="vo.sendGoodsSortID" value="$SendGoodsSortVo.id" >selected</eq>
+					value="{$SendGoodsSortVo.id}">{$SendGoodsSortVo.name}</option>
+				</volist>
+				</select>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

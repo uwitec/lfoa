@@ -1,0 +1,34 @@
+<div class="page">
+	<div class="pageHeader">
+		统计信息
+	</div>
+	<div class="pageContent">
+		<table class="table" width="100%" layoutH="400">
+			<thead>
+			<tr>
+				<th width="80">报刊名称</th>
+				<th width="60">已接收</th>
+				<th width="60">未接收</th>
+				<th width="60">已转换</th>
+				<th width="60">未转换</th>
+				<th width="60">已分配</th>
+				<th width="60">未分配</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="List">
+				<tr target="id" rel="{$vo.id}">
+					<td>{$vo.postCodeName}</td>
+					<td>{$vo.sumReceive}</td>
+					<td>{$vo.sumUnReceive}</td>
+					<td>{$vo.sumTrans}</td>
+					<td>{$vo.sumUnTrans}</td>
+					<td>{$vo.sumCheckOut}</td>
+					<td>{$vo.sumUnCheckOut}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+	</div>	
+</div>
+

@@ -1,0 +1,153 @@
+<script language="javascript">
+$(function()
+{ 
+    $("#magazineTerrmDelete").click(function(event)
+	{ 
+		var ids = '';
+		$("[name='magazineTerrmId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#magazineTerrmDelete').attr('href', "__URL__/foreverdelete/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}		
+    }); 
+});
+
+</script>
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="year" value="{$_REQUEST.year}"/>
+	<input type="hidden" name="month" value="{$_REQUEST.month}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li style="width:300px">
+					<label>所属报刊：</label>
+					<select name="postCode">
+						<option value="">--请选择--</option>
+					<volist name="MagazineList" id="Magazinevo">
+						<option <eq name="_REQUEST.postCode" value="$Magazinevo.postCode" > selected </eq>
+						value="{$Magazinevo.postCode}">{$Magazinevo.name}</option>
+					</volist>
+					</select>
+				</li>
+				<li>
+					<label>年度：</label>
+					<input type="text" class="digists" name="year" size="10" maxlength="4" value="{$_REQUEST.year}" />
+				</li>
+				<li>
+					<label>月份：</label>
+					<select name="month">
+						<option value="">--请选择--</option>	
+						<option <eq name="_REQUEST.month" value="1"> selected </eq> value="1">一月</option>
+						<option <eq name="_REQUEST.month" value="2"> selected </eq> value="2">二月</option>
+						<option <eq name="_REQUEST.month" value="3"> selected </eq> value="3">三月</option>
+						<option <eq name="_REQUEST.month" value="4"> selected </eq> value="4">四月</option>
+						<option <eq name="_REQUEST.month" value="5"> selected </eq> value="5">五月</option>
+						<option <eq name="_REQUEST.month" value="6"> selected </eq> value="6">六月</option>
+						<option <eq name="_REQUEST.month" value="7"> selected </eq> value="7">七月</option>
+						<option <eq name="_REQUEST.month" value="8"> selected </eq> value="8">八月</option>
+						<option <eq name="_REQUEST.month" value="9"> selected </eq> value="9">九月</option>
+						<option <eq name="_REQUEST.month" value="10"> selected </eq> value="10">十月</option>
+						<option <eq name="_REQUEST.month" value="11"> selected </eq> value="11">十一月</option>
+						<option <eq name="_REQUEST.month" value="12"> selected </eq> value="12">十二月</option>
+					</select>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add" target="dialog" width="450" height="300" mask="true"><span>新增</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{id}" target="dialog" width="450" height="300"  mask="true" warn="请选择一条记录"><span>编辑</span></a></li>
+				<!--<li><a class="edit" href="__URL__/monthCopy" target="dialog" width="450" height="250"  mask="true" ><span>月复制</span></a></li>-->
+				<li><a class="edit" href="__URL__/yearCopy" target="dialog" width="450" height="200"  mask="true"><span>年复制</span></a></li>
+				<li><a class="edit" href="__URL__/weekAdd" target="dialog" width="450" height="320"  mask="true" ><span>星期添加</span></a></li>
+				<li><a class="edit" href="__URL__/monthAdd" target="dialog" width="450" height="310"  mask="true"><span>月添加</span></a></li>
+				<li><a class="delete" href="__URL__/foreverdelete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" id="magazineTerrmDelete" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>	
+				<li><a class="icon" href="__URL__/detail/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="450" height="300" mask="true"  warn="请选择一条记录"><span>详细</span></a></li>	
+				<li><a class="icon" href="__URL__/export/{$searchStr}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>
+				<li>
+					<form method="post" action="__URL__/import/navTabId/{$Think.const.MODULE_NAME}" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this);">
+						<label>期数信息选择：</label>
+						<input name="termExcelData" type="file" />
+						<button type="submit">导入</button>
+					</form>
+				</li>
+			</ul>
+		</div>
+
+		<table class="list" width="100%" layoutH="118">
+			<thead>
+			<tr>
+				<th width="22"><input type="checkbox" group="magazineTerrmId[]" class="checkboxCtrl"></th>
+				<th width="80">期数名称</th>
+				<th width="150">期数全称</th>
+				<th width="80">期数序列</th>
+				<th width="100">所属报刊</th>
+				<th width="80">月份</th>
+				<th width="80">年度</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td><input name="magazineTerrmId[]" value="{$vo.id}" type="checkbox"></td>
+					<td>{$vo.name}</td>
+					<td>{$vo.longname}</td>
+					<td>{$vo.termList}</td>
+					<td>{$vo.postCode|get_magazine_name}</td>
+					<td>
+						<if condition="$vo.month eq 1">一月
+						<elseif condition="$vo.month eq 2"/>二月
+						<elseif condition="$vo.month eq 3"/>三月
+						<elseif condition="$vo.month eq 4"/>四月
+						<elseif condition="$vo.month eq 5"/>五月
+						<elseif condition="$vo.month eq 6"/>六月
+						<elseif condition="$vo.month eq 7"/>七月
+						<elseif condition="$vo.month eq 8"/>八月
+						<elseif condition="$vo.month eq 9"/>九月
+						<elseif condition="$vo.month eq 10"/>十月
+						<elseif condition="$vo.month eq 11"/>十一月
+						<elseif condition="$vo.month eq 12"/>十二月
+						</if>
+					</td>
+					<td>{$vo.year}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

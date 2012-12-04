@@ -1,0 +1,69 @@
+@charset "utf-8";
+
+/*public*/
+body{ margin:0; padding:0;background-color:#00407c; width:100%; height:100%;}
+img{ border:0;}
+p,span,li,ul,ol,b,h1,h2,h3,h4,h5,h6{ margin:0; padding:0;}
+li{ list-style:none;}
+a{ color:#666; text-decoration:none;}
+a:hover{ color:#F90; text-decoration:none;}
+/*main*/
+#top{ height:100px; margin:0 auto; background:#FFF repeat center; overflow:hidden; position:relative;}
+#top_menu{ background:url(../default/images/index/top_menubg.gif) repeat-x; height:35px; line-height:32px;}
+#menu{ float:right; margin-right:15px; display:inline; font-size:13px; color:#FF0;line-height:25px;}
+#menu a{ margin:0 5px; padding:0 5px; color:#FF0;}
+#menu a:hover{ margin:0 5px; padding:0 5px; color:#FFF;}
+#user{ float:right; line-height:30px; font-size:13px; color:#333; margin:40px 30px 0 0;}
+#user span{ margin:0 10px;}
+#user b{ color:#09F; font-size:13px; font-weight:normal;}
+#time{ float:left; line-height:32px; color:#FFF; font-size:14px; margin-left:30px;}
+#logo{ background:url(../default/images/index/logo.png) no-repeat; width:487px; height:65px; float:left; margin:0 0 0 15px; display:inline;}
+*html #logo{filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="../default/images/index/logo.png"); background:none; }
+#logo img{ width:487px; height:62px;}
+#main{ width:100%; background:#00407c repeat center; overflow:hidden;}
+
+body{ margin:0; background-color:#00407c; width:100%; height:100%;}
+p,span,h1,h2,h3.ul,li,b{ margin:0; padding:0;}
+img{ border:0;}
+a{ color:#666; text-decoration:none;}
+a:hover{ color:#39F; text-decoration:none;}
+#cont{ width:100%; height:100%; margin:3px 0 0 5px;background:#2e9ee6;overflow:hidden; position:relative;}
+#cont_menu{ background:url(../default/images/index/cont_menubg.gif) repeat-x; height:26px; line-height:26px; color:#000; font-size:13px; text-indent:5px; width:1255px;}
+#cont_menu a{ color:#00407c;}
+#cont_menu a:hover{ color:#FF0;}
+#cont_box{ background:#FFF repeat center; overflow:hidden; margin:5px 5px 5px 5px; float:right; display:inline; overflow:hidden; width:99%; height:95%;*height:95%;}
+#cont_bg{ background:url(../default/images/index/cont_bg.gif) repeat-x; height:178px; width:100%; float:right; overflow:hidden;}
+
+
+body{ margin:0;}
+p,span,h1,h2,h3.ul,li,b{ margin:0; padding:0;}
+img{ border:0;}
+a{ color:#666; text-decoration:none;}
+a:hover{ color:#39F; text-decoration:none;}
+#cont{ background:#00407c;}
+#cont_column{ background:#2e9ee6; margin:10px;}
+#cont_menu{ background:url(../default/images/index/cont_menubg.gif) repeat-x; height:26px; text-align:left; line-height:26px; color:#000; font-size:13px; text-indent:5px;}
+#cont_menu a{ color:#FFF;}
+#cont_menu a:hover{ color:#006;}
+
+body{margin:0;}
+#foot{background:url(../default/images/index/foot_bg.gif) repeat-x;height:27px;*height:27px;height:27px !important;border-top:10px solid #02407b;line-height:27px;line-height:20px !important;text-align:center; font-family:Verdana, Geneva, sans-serif, "仿宋";color:#fff;font-size:12px;}
+
+
+/*public*/
+body{background-color:#00407c; width:100%; height:100%;}
+body,h3,ul,li,h3,span{margin:0;padding:0;}
+#left_list ul li a{color:#FFF; text-decoration:none;font-size:12px;}
+#left_list li a:hover{color:#3CF;text-decoration:none;}
+#left,#left h3,#left_list{float:left;}
+img{ border:0;}
+/*left*/
+#left{width:180px;height:100%;float:left; margin-top:3px;}
+#left_listtitle{width:180px;height:31px;background:url(../default/images/index/left_h3bg.gif) no-repeat;line-height:31px;text-align:center;color:#F3FB08;font-size:14px; font-weight:bold; float:left;}
+#left_list{width:180px;text-align:center;background:#31a1e9; float:left; overflow-y:auto; height:600px;overflow-x:hidden;}
+#left_list ul li{list-style:none; display:inline-block; width:160px;}
+#left_list ul li a{width:160px;display:block; line-height:20px;}
+#left_list ul li a:hover{background:#ffffff; width:180px;display:block; line-height:20px; position:relative;}
+#line{ background:url(../default/images/index/left_liline.gif) no-repeat; width:200px; height:4px; float:left; overflow:hidden;}
+#column_jt{ float:left; width:9px; height:100%; margin:32% 0 0 0; display:inline; }
+#column_jt img{ width:9px; height:45px; float:left;}

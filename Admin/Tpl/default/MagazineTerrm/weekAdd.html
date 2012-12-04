@@ -1,0 +1,64 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/saveWeekAdd/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>报刊名称：</label>
+				<select name="postCode" class="required" style="width:100px">
+					<option value="">--请选择--</option>
+				<volist name="MagazineList" id="MagazineVo">
+					<option value="{$MagazineVo.postCode}">{$MagazineVo.name}</option>
+				</volist>
+				</select><font color="red">*</font>
+			</div>
+			
+			<div class="unit">
+				<label>开始期数：</label>
+				<input type="text" class="digists required" name="termName" size="30" maxlength="100"  title="格式(示例：100)" />
+			</div>
+
+			<div class="unit">
+				<label>间隔期数：</label>
+				<input type="text" class="digists required" name="intervalTerm" value="1" size="30" maxlength="100"  title="格式(示例：1)" />
+			</div>
+
+			<div class="unit">
+				<label>星期几：</label>
+				<input type="checkbox" name="weekday[]" value="0">星期日
+				<input type="checkbox" name="weekday[]" value="1">星期一
+				<input type="checkbox" name="weekday[]" value="2">星期二
+				<input type="checkbox" name="weekday[]" value="3">星期三
+				<input type="checkbox" name="weekday[]" value="4">星期四
+				<input type="checkbox" name="weekday[]" value="5">星期五
+				<input type="checkbox" name="weekday[]" value="6">星期六
+				
+			</div>
+
+			<div class="unit">
+				<label>周期：</label>
+				<select name="cycleTerm">
+					<option value="">--请选择--</option>
+					<option value="1">整年</option>
+					<option value="2">上半年</option>
+					<option value="3">下半年</option>
+				</select><font color="red">*</font>
+			</div>
+
+			<div class="unit">
+				<label>年度：</label>
+				<input type="text" class="digists required" name="year" value="{$currentYear}" size="30" maxlength="100" value="{$vo.year}" title="格式(示例：2012)" />
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

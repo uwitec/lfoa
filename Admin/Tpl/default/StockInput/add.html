@@ -1,0 +1,100 @@
+<script language="javascript">
+$(function(){  
+    $("#magazineName").change(function(){ 
+        getTermSelectVal(); 
+    });
+
+	$("#year").change(function(){ 
+        getTermSelectVal(); 
+    });
+
+	$("#month").change(function(){ 
+        getTermSelectVal(); 
+    });
+});
+
+function getTermSelectVal()
+{ 
+	$.getJSON(
+		"__URL__/getSelect/type/1/postCode/"+$("#magazineName").val()+"/year/"+$("#year").val()+"/month/"+$('#month').val(),
+		function(json)
+		{         
+			var termSelect = $("#termSelect");         
+			termSelect.html('');   
+			$.each(json,function(index,array)
+			{ 
+				if (array['title'] != '--请选择--')
+				{
+					var item = "<div class='unit'><label>报刊第"+array['title']+"<input type='hidden' name='termIDArr["+index+"]' value='"+array['id']+ "' readonly='readonly'/>期 印数：</label> <input type='text' class='required' size='30' maxlength='20' name='printNumArr["+index+"]' /> </div>";
+					termSelect.append(item);   
+				}				      
+			});     
+		}
+	); 
+}
+</script>
+
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+			<li>
+					<label>入库日期：</label>
+					<input type="text" name="inputDate" class="date" readonly="true" value="{$_REQUEST.inputDate}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+			</li>
+			</div>
+			<div class="unit">				
+				<label>入库编号：</label>
+				<input id="inputCode" name="inputCode" type="text" size="30"/>
+			</div>
+			<div class="unit">
+				<label>报刊年份：</label>
+				<input id="year" class="digits" type="text" size="30"/>
+			</div>
+			<div class="unit">
+				<label>报刊名称：</label>
+				<select id="magazineName" name="postCode" class="required" style="width:100px">
+					<option value="">--请选择--</option>
+				<volist name="MagazineList" id="MagazineVo">
+					<option value="{$MagazineVo['postCode']}">{$MagazineVo['name']}</option>
+				</volist>
+				</select><font color="red">*</font>
+			</div>			
+			<div class="unit">
+				<label>月份：</label>
+				<select id="month">
+					<option value="">--请选择--</option>	
+					<option value="1">一月</option>
+					<option value="2">二月</option>
+					<option value="3">三月</option>
+					<option value="4">四月</option>
+					<option value="5">五月</option>
+					<option value="6">六月</option>
+					<option value="7">七月</option>
+					<option value="8">八月</option>
+					<option value="9">九月</option>
+					<option value="10">十月</option>
+					<option value="11">十一月</option>
+					<option value="12">十二月</option>
+				</select>
+			</div>
+			<div id="termSelect">
+				请选择期数
+			</div>
+		</div>
+
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

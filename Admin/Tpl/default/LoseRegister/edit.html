@@ -1,0 +1,32 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<volist name="idArr" id="idVo" key="k">
+		<input type="hidden" name="id[{$k - 1}]" value="{$idVo.id}" /> 
+		</volist>
+		<volist name="orderFlowIDArr" id="orderFlowID" key="k">
+		<input type="hidden" name="orderFlowID[{$k - 1}]" value="{$orderFlowID}" /> 
+		</volist>
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>缺货份数：</label>
+				<input type="text" class="required digits" size="30" maxlength="20" name="quantity" value="{$vo.quantity}" />
+			</div>
+			<div class="unit">
+				<label>备注：</label>
+				<textarea name="memo" id="memo" cols="80" rows="10">{$vo.memo}</textarea>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

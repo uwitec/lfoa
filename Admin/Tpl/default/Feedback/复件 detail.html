@@ -1,0 +1,80 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>姓名：</label>
+				<label>{$vo.name}</label>
+			</div>
+			<div class="unit">
+				<label>年龄：</label>
+				<label>{$vo.age}</label>
+			</div>
+			<div class="unit">
+				<label>性别：</label>
+				<label>
+					<eq name="vo.isOldClient" value="1">男</eq>
+					<eq name="vo.isOldClient" value="0">女</eq>
+				</label>
+			</div>
+			<div class="unit">
+				<label>单位：</label>
+				<label>{$vo['UnitID']|get_custom_unit_name=$vo['UnitID']}</label>
+			</div>
+			<div class="unit">
+				<label>身份证：</label>
+				<label>{$vo.cardID}</label>
+			</div>
+			<div class="unit">
+				<label>通讯地址：</label>
+				<label>{$vo.address}</label>
+			</div>
+			<div class="unit">
+				<label>电话号码1：</label>
+				<label>{$vo.telphone1}</label>
+			</div>
+			<div class="unit">
+				<label>电话号码2：</label>
+				<label>{$vo.telphone2}</label>
+			</div>
+			<div class="unit">
+				<label>电话号码3：</label>
+				<label>{$vo.telphone3}</label>
+			</div>
+			<div class="unit">
+				<label>所属业务员：</label>
+				<label>{$vo['employeeID']|get_employee_name=$vo['employeeID']}</label>
+			</div>
+			<div class="unit">
+				<label>邮政编码：</label>
+				<label>{$vo.postCode}</label>
+			</div>
+			<div class="unit">
+				<label>省份：</label>
+				<label>{$vo.province}</label>
+			</div>
+			<div class="unit">
+				<label>城市：</label>
+				<label>{$vo.city}</label>
+			</div>
+			<div class="unit">
+				<label>是否老客户：</label>
+				<label>
+					<eq name="vo.isOldClient" value="1">是</eq>
+					<eq name="vo.isOldClient" value="0">否</eq>
+				</label>
+			</div>	
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

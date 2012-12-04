@@ -1,0 +1,22 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>姓名：</label>
+				<label>{$vo.name}</label>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

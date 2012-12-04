@@ -1,0 +1,87 @@
+<div class="page">
+	<div class="pageContent">
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="insertPerson" value="{$InsertPerson}"/> 
+		<input type="hidden" name="employeeID" value="{$EmployeeID}"/> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>姓名：</label>
+				<input type="text" class="required" size="10" maxlength="20" name="name" />
+			
+				<label>年龄：</label>
+				<input type="text" size="10" maxlength="20" name="age" />
+			</div>
+			<div class="unit">
+				<label>性别：</label>
+				<select name="sex">
+					<option value="">--请选择--</option>
+					<option value="1">男</option>
+					<option value="0">女</option>
+				</select>
+
+				<label>是否老客户：</label>
+				<select name="isOldClient">
+					<option value="">--请选择--</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</div>
+			<div class="unit">
+				<label>单位：</label>
+				<select name="UnitID">
+						<option value="">--请选择--</option>
+					<volist name="CustomUnitList" id="CustomUnitvo">
+						<option value="{$CustomUnitvo.id}">{$CustomUnitvo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>身份证：</label>
+				<input type="text" class="alphanumeric" name="cardID" size="30" maxlength="100"/>
+			</div>
+			<div class="unit">
+				<label>通讯地址：</label>
+				<input type="text" name="address" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>手机：</label>
+				<input type="text" name="telphone1" size="10" maxlength="20"/>			
+				<label>电话：</label>
+				<input type="text" name="telphone2" size="10" maxlength="20"/>
+			</div>
+			<div class="unit">
+				<label>备用电话：</label>
+				<input type="text" name="telphone3" size="10" maxlength="20"/>			
+				<label>传真：</label>
+				<input type="text" name="fax" size="10" maxlength="20"/>
+			</div>
+			<div class="unit">
+				<label>邮政编码：</label>
+				<input type="text" name="postCode" class="digits"  size="10" maxlength="20"/>
+			
+				<label>省份：</label>
+				<select name="provinceID" id="provinceID">
+						<option value="">--请选择--</option>
+					<volist name="ProvinceList" id="ProvinceVo">
+						<option value="{$ProvinceVo.id}">{$ProvinceVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>所属县市区：</label>
+				<input type="text" name="cityName" size="30" maxlength="100"/>
+			</div>
+				
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

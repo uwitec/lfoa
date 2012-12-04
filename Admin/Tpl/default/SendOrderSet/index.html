@@ -1,0 +1,194 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>绿风OA办公系统-发货清单维护</title>
+
+<script language="javascript" src="__PUBLIC__/Printer/LodopFuncs.js"></script>
+</head>
+<body>
+<div class="page">
+		<p>发货清单打印样式维护：</p>
+		<table border="1" width="100%">
+			<tr>
+		    <td width="9%" align="center"><a href="javascript:myheight100()">适高显示</a></td>
+		    <td width="10%" align="center"><a href="javascript:myNormal()">正常显示</a></td>
+		    <td width="9%" align="center"><a href="javascript:myWidth100()">适宽显示</a></td>
+		    <td width="18%" align="center">选择打印机
+		    <select id="sendOrderSetPrinterList" size="1">
+		    </select>
+		    </td>
+		    <td width="10%" align="center"><a href="javascript:myPrintOne()">打印本页</a></td>
+		    <td width="18%" align="center"><a href="javascript:myPrintSetup()">打印维护</a></td>
+		  </tr>
+			<tr>
+    		<td width="100%" colspan="11">
+				<object id="sendOrderSetLODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=800 height=500>
+					<embed id="sendOrderSetLODOP_EM" type="application/x-print-lodop" width=800 height=500 pluginspage="__PUBLIC__/Printer/install_lodop.exe"></embed>
+				</object>
+    		</td>
+  		</tr>
+  </table>
+</div>
+<script language="javascript" type="text/javascript">
+
+var iWindowMode = 0;
+var LODOP;
+function myGetPrinters()
+{
+   var html = '<option value="">--请选择--</option>';
+   LODOP = getLodop(document.getElementById('sendOrderSetLODOP'), document.getElementById('sendOrderSetLODOP_EM'));
+   iPrinterCount = LODOP.GET_PRINTER_COUNT();
+   for(var i = 0; i < iPrinterCount; i ++ )
+   {
+      html += "<option value='"+i+"'>" + LODOP.GET_PRINTER_NAME(i) + "</option>";
+   }
+   document.getElementById("sendOrderSetPrinterList").innerHTML = html;
+}
+// 打印表格
+function addtable(offsetTop)
+{
+   LODOP.ADD_PRINT_SHAPE(2, 10 + offsetTop, 25, 700, 280, 0, 2, "#000000");
+   // 外框
+   LODOP.ADD_PRINT_SHAPE(1, 50 + offsetTop, 25, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(1, 90 + offsetTop, 25, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(1, 130 + offsetTop, 25, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(1, 170 + offsetTop, 25, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(1, 210 + offsetTop, 25, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(1, 250 + offsetTop, 25, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 80, 1, 160, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 300, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 390, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 530, 1, 80, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 130 + offsetTop, 210, 1, 80, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 130 + offsetTop, 340, 1, 80, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 130 + offsetTop, 470, 1, 80, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 130 + offsetTop, 600, 1, 80, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 250 + offsetTop, 210, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 210 + offsetTop, 490, 1, 80, 0, 1, "#000000");
+   // 竖线
+   LODOP.SET_PRINT_STYLE("FontSize", 18);
+   LODOP.ADD_PRINT_TEXT(15 + offsetTop, 330, 200, 25, "发货清单");
+   LODOP.SET_PRINT_STYLE("FontSize", 11);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 35, 80, 25, "地址");
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 310, 80, 25, "制单日期");
+   LODOP.ADD_PRINT_TEXT(100 + offsetTop, 180, 80, 25, "姓名");
+   LODOP.ADD_PRINT_TEXT(100 + offsetTop, 540, 80, 25, "电话");
+   LODOP.ADD_PRINT_TEXT(220 + offsetTop, 35, 420, 25, "发货单位：河南教育读物发行总社有限公司");
+   LODOP.ADD_PRINT_TEXT(260 + offsetTop, 35, 180, 25, "地址：郑州市红旗路99号");
+   LODOP.ADD_PRINT_TEXT(260 + offsetTop, 220, 270, 25, "查询电话：0371-65965766，65994903");
+   LODOP.ADD_PRINT_TEXT(220 + offsetTop, 500, 90, 25, "发货方式：");
+   LODOP.ADD_PRINT_TEXT(260 + offsetTop, 500, 100, 25, "区域负责人：");
+}
+
+// 打印一些文字
+function addTitle(offsetTop, address, datetime, years, province, name, telphone, issue, sendtype, manager)
+{
+   LODOP.SET_PRINT_STYLE("FontSize", 10);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 90, 200, 25, address);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 410, 120, 25, datetime);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 550, 150, 25, years);
+   LODOP.ADD_PRINT_TEXT(100 + offsetTop, 90, 60, 25, province);
+   LODOP.ADD_PRINT_TEXT(100 + offsetTop, 230, 150, 25, name);
+   LODOP.ADD_PRINT_TEXT(100 + offsetTop, 580, 150, 25, telphone);
+   LODOP.ADD_PRINT_TEXT(180 + offsetTop, 35, 80, 25, issue);
+   LODOP.ADD_PRINT_TEXT(220 + offsetTop, 590, 80, 25, sendtype);
+   LODOP.ADD_PRINT_TEXT(260 + offsetTop, 590, 80, 25, manager);
+
+}
+
+// 打印期刊明细 有可能多条
+function addMagzine(offsetTop, line, magzineStr)
+{
+   // 出库明细循环 间距30
+   LODOP.ADD_PRINT_TEXT(65 + line * 25 + offsetTop, 50, 600, 25, magzineStr);
+}
+function myheight100()
+{
+   iWindowMode = 0;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myNormal()
+{
+   iWindowMode = 1;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myWidth100()
+{
+   iWindowMode = 2;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myPrintOne()
+{
+   CreatePage(iWindowMode);
+   if (LODOP.PRINT()) alert("打印成功！");
+}
+;
+function myPrintSetup()
+{
+   CreatePage(iWindowMode);
+   LODOP.PRINT_SETUP();
+}
+;
+function CreatePage(iWindowMode)
+{
+   LODOP = getLodop(document.getElementById('sendOrderSetLODOP'), document.getElementById('sendOrderSetLODOP_EM'));
+   if(LODOP != null)
+   {
+      offsetTop = 0;
+      LODOP.PRINT_INIT("绿风OA办公系统_发货清单");
+      // 打印表格
+      addtable(offsetTop);
+      // 标题文字
+      addTitle(offsetTop, "郑州市纬五路", "2012-04-21", "2012  上半年", "河南", "郭巍巍", "13548589654", "", "长通物流", "绿风");
+
+      // 期刊目前3条1个表格
+      offsetTop = offsetTop + 285;
+      // 打印表格
+      addtable(offsetTop);
+      // 标题文字
+      addTitle(offsetTop, "郑州市纬五路", "2012-04-21", "2012  上半年", "河南", "郭巍巍", "13548589654", "", "长通物流", "绿风");
+
+      // 期刊目前3条1个表格
+      offsetTop = offsetTop + 285;
+      // 打印表格
+      addtable(offsetTop);
+      // 标题文字
+      addTitle(offsetTop, "郑州市纬五路", "2012-04-21", "2012  上半年", "河南", "郭巍巍", "13548589654", "", "长通物流", "绿风");
+
+      // 期刊目前3条1个表格
+      LODOP.SET_SHOW_MODE("PREVIEW_IN_BROWSE", 1);
+      LODOP.SET_SHOW_MODE("HIDE_PAPER_BOARD", 1);
+      LODOP.SET_PREVIEW_WINDOW(iWindowMode, 3, 0, 0, 0, "");
+      // 隐藏工具条，选定宽高比例模式
+
+      intPrintNO = document.getElementById("sendOrderSetPrinterList").value;
+      if (intPrintNO != "") LODOP.SET_PRINTER_INDEX(intPrintNO);
+      // 指定所选打印机
+   }
+}
+myNormal();
+myGetPrinters();
+</script>
+</body>
+</html>

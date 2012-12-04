@@ -1,0 +1,225 @@
+<script language="javascript">
+$(function()
+{ 
+    $("#checkOutPrint").click(function()
+	{ 
+		var ids = '';
+		$("[name='checkOutPrintId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#checkOutPrint').attr('href', "__URL__/prePrint/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}
+		
+    }); 
+
+	$("#checkOutCancelPrint").click(function()
+	{ 
+		var ids = '';
+		$("[name='checkOutPrintId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#checkOutCancelPrint').attr('href', "__URL__/cancelPrint/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}
+		
+    }); 
+
+	$(".customClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+	}); 
+
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+	}); 
+});
+</script>
+
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="orderTime" value="{$_REQUEST.beginTime}"/>
+	<input type="hidden" name="orderTime" value="{$_REQUEST.endTime}"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="month" value="{$_REQUEST.month}"/>
+	<input type="hidden" name="customID" value="{$_REQUEST.customID}"/>
+	<input type="hidden" name="magazineOriginNameID" value="{$_REQUEST.magazineOriginNameID}"/>
+	<input type="hidden" name="isPrintCheckOut" value="{$_REQUEST.isPrintCheckOut}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>					
+					<label>开始日期：</label>
+					<input type="text" name="beginTime" class="date" readonly="true" value="{$_REQUEST.beginTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li>					
+					<label>结束日期：</label>
+					<input type="text" name="endTime" class="date" readonly="true" value="{$_REQUEST.endTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>报刊名称：</label>
+					<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+					<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+					<a class="magazineClear" href="#">清空</a>					
+				</li>
+				<li>
+					<label>月份：</label>
+					<select name="month">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.month" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.month" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.month" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.month" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.month" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.month" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.month" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.month" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.month" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.month" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.month" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.month" value='12'>selected</eq> >十二月</option>
+					</select>
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>客户名称：</label>
+					<input name="customID" value="{$_REQUEST['customID']}" type="hidden">
+					<input name="customName" value="{$_REQUEST['customName']}" size="6" type="text" readonly="readonly"/>&nbsp;
+					<a class="btnLook" href="__APP__/CustomSelect/index" lookupGroup="" lookupName="customID">查找</a>&nbsp;
+					<a class="customClear" href="#">清空</a>
+				</li>
+				<li>
+					<label>订单来源：</label>
+					<select name="magazineOriginNameID">
+						<option value="">--请选择--</option>
+					<volist name="MagazineOriginList" id="magazineOriginVo">
+						<option <eq name="_REQUEST.magazineOriginNameID" value="$magazineOriginVo.id" >selected</eq> value="{$magazineOriginVo.id}">{$magazineOriginVo.name}</option>
+					</volist>
+					</select>
+				</li>
+				<li>
+					<label>是否出库</label>
+					<input type="checkbox" name="isPrintCheckOut" value='1' <eq name="_REQUEST.isPrintCheckOut" value="1">checked</eq>/>					
+				</li>				
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">查询</button>
+							</div>
+						</div>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="reset">条件重置</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+
+	<div class="pageContent">
+
+		<div class="panelBar">			
+			<ul class="toolBar">
+				<li><a id="beginCheckOut" class="add" href="__URL__/beginCheckOut/id/{id}" target="dialog" width="900" height="500"  mask="true" ><span>开始出库</span></a></li>				
+				<li><a id="CancelCheckOut" class="delete" href="__URL__/cancelCheckOut/id/{id}" target="navTabTodo"  mask="true" title="你确定要取消出库吗？" warn="请选择一条记录"><span>取消出库</span></a></li>
+				<li><a class="icon" href="__URL__/export/{$SearchSql}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>	
+			</ul>
+		</div>
+		
+		<table class="table" width="100%"  layoutH="180" id="PrintList">
+			<thead>
+			<tr>
+				<th width="50"><input type="checkbox" group="checkOutPrintId[]" class="checkboxCtrl"></th>
+				<th width="80">期数</th>
+				<th width="60">月份</th>
+				<th width="80">收货人</th>
+				<th width="80">省份</th>
+				<th width="80">城市</th>				
+				<th width="80">单位</th>
+				<th width="80">班级</th>
+				<th width="100">电话</th>
+				<th width="150">地址</th>
+				<th width="120">报刊名称</th>
+				<th width="80">份数</th>
+				<th width="60">发行员</th>
+				<th width="80">发货方式</th>
+				<th width="80">是否打印出库单</th>
+				<th width="80">出库单号</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}" <if condition="$vo.isPrintCheckOut eq 1"><else />class="rowRed"</if>>
+					<td><input name="checkOutPrintId[]" value="{$vo.id}" type="checkbox"></td>
+					<td>{$vo.termName}</td>
+					<td>{$vo.termMonth}</td>
+					<td>{$vo.recPeople}</td>
+					<td>{$vo.provinceID|get_province_name}</td>
+					<td>{$vo.cityName}</td>
+					<td>{$vo.schoolID|get_custom_unit_name}</td>
+					<td>{$vo.class}</td>
+					<td>{$vo.recTelphone}</td>
+					<td>{$vo.recAddress|msubstr=0,10}</td>
+					<td>{$vo.magazineName}</td>
+					<td>{$vo.sendNum}</td>
+					<td>{$vo.postPeople|get_employee_name}</td>
+					<td>{$vo.sendGoodsTypeID|get_send_goods_type_name}</td>
+					<td><if condition="$vo.isPrintCheckOut eq 1">是<else />否</if></td>
+					<td>{$vo.checkOutNum}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="100" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

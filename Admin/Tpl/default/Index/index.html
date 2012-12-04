@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>{$Think.config.site_name}</title>
+<link href="__PUBLIC__/Theme/Admin/Dwz/themes/default/style.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/Theme/Admin/Dwz/themes/css/core.css" rel="stylesheet" type="text/css" />
+<!--[if IE]>
+<link href="__PUBLIC__/Theme/Admin/Dwz/themes/css/ieHack.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/speedup.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/jquery.cookie.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/jquery.bgiframe.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/dwz.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/dwz.regional.zh.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/dwz.database.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Theme/Admin/Dwz/js/xheditor/xheditor-zh-cn.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+var APP = '__APP__';
+function fleshVerify(){
+	//重载验证码
+	$('#verifyImg').attr("src", '__APP__/Public/verify/'+new Date().getTime());
+}
+
+function dialogAjaxMenu(json){
+	dialogAjaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok){
+		$("#sidebar").loadUrl("__APP__/Public/menu");
+	}
+}
+
+function navTabAjaxMenu(json){
+	navTabAjaxDone(json);
+	if (json.statusCode == DWZ.statusCode.ok){
+		$("#sidebar").loadUrl("__APP__/Public/menu");
+	}
+}
+
+$(function(){
+	DWZ.init("__PUBLIC__/Theme/Admin/Dwz/dwz.frag.xml", {
+		loginUrl:"login_dialog.html", loginTitle:"登录",	// 弹出登录对话框
+		statusCode:{ok:200, error:300, timeout:301}, //【可选】
+		pageInfo:{pageNum:"pageNum", numPerPage:"numPerPage", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
+		debug:false,	// 调试模式 【true|false】
+		callback:function(){
+			initEnv();
+			$("#themeList").theme({themeBase:"themes"}); // themeBase 相对于index页面的主题base路径
+		}
+	});
+
+	setInterval(function(){  
+        $("#time").text(new Date().toLocaleString());  
+    },1000); 
+
+});
+
+//清理浏览器内存,只对IE起效，FF不需要
+
+if ($.browser.msie) {
+	window.setInterval("CollectGarbage();", 10000);
+}
+
+</script>
+<style>
+/*public*/
+.rowRed {color:#FF0000;}
+body{ margin:0; padding:0;background-color:#00407c; width:100%; height:100%;}
+img{ border:0;}
+p,span,li,ul,ol,b,h1,h2,h3,h4,h5,h6{ margin:0; padding:0;}
+li{ list-style:none;}
+a{ color:#666; text-decoration:none;}
+a:hover{ color:#F90; text-decoration:none;}
+/*main*/
+#top{ height:100px; margin:0 auto; background:#FFF repeat center; overflow:hidden; position:relative;}
+#top_menu{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/index/top_menubg.gif) repeat-x; height:35px; line-height:32px;}
+#menu{ float:right; margin-right:15px; display:inline; font-size:13px; color:#FF0; line-height:32px;}
+#menu a{ margin:0 5px; padding:0 5px; color:#FF0;}
+#menu a:hover{ margin:0 5px; padding:0 5px; color:#FFF;}
+#user{ float:right; line-height:30px; font-size:13px; color:#333; margin:40px 30px 0 0;}
+#user span{ margin:0 10px;}
+#user b{ color:#09F; font-size:13px; font-weight:normal;}
+#time{ float:left; line-height:32px; color:#FFF; font-size:14px; margin-left:30px;}
+#logo{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/index/logo.png) no-repeat; width:487px; height:65px; float:left; margin:0 0 0 15px; display:inline;}
+*html #logo{filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="__PUBLIC__/Theme/Admin/Dwz/themes/default/images/index/logo.png"); background:none; }
+#logo img{ width:487px; height:62px;}
+#main{ width:100%; background:#00407c repeat center; overflow:hidden;}
+
+#cont_column{ background:#2e9ee6;}
+#cont_menu{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/index/cont_menubg.gif) repeat-x; height:26px; margin:3px 0 0 0; line-height:26px; color:#000; font-size:13px; text-indent:5px;}
+#cont_menu a{ color:#FFF;}
+#cont_menu a:hover{ color:#006;}
+</style>
+
+</head>
+<body scroll="no">
+	<div id="layout">
+		<div id="header">
+			<div id="top">
+				    <div id="top_menu">
+				        <div id="time"> [	2012年04月12日 星期四  下午16:00	]</div>
+				        <div id="menu">
+				        	<a href="__APP__/Public/main" target="dialog" width="580" height="360" rel="sysInfo">系统消息</a>| 
+				        	<a href="__APP__/Public/password/" target="dialog" width="520" height="230" mask="true">修改密码</a>| 
+				        	<a href="__APP__/Public/profile/" target="dialog" width="560" height="270" mask="true">修改资料</a>| 
+				        	<a href="__APP__/Public/logout/">退出</a> </div>
+				    </div>
+					<a href="{$Think.config.baseurl}" style="cursor:pointer;"><div id="logo"> </div></a>
+				    <div id="user">
+				        <span>欢迎您：<b>{$Think.session.loginUserName}</b></span>
+				        <span>所在部门：<b>{$departmentName}</b></span>
+					</div>
+				</div>
+		</div>		
+
+		<div id="leftside">
+			<div id="sidebar_s">
+				<div class="collapse">
+					<div class="toggleCollapse"><div></div></div>
+				</div>
+			</div>			
+
+			<div id="sidebar">
+			<!--<div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>-->
+				<include file="Public:menu" />
+			</div>
+		</div>
+
+		<div id="container">
+			<div id="navTab" class="tabsPage">
+				<div class="tabsPageHeader">
+					<div class="tabsPageHeaderContent"><!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+						<ul class="navTab-tab">
+							<li tabid="main" class="main"><a href="javascript:void(0)"><span><span class="home_icon">我的主页</span></span></a></li>
+						</ul>
+					</div>
+					<div class="tabsLeft">left</div><!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+					<div class="tabsRight">right</div><!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+					<div class="tabsMore">more</div>
+				</div>
+				<ul class="tabsMoreList">
+					<li><a href="javascript:void(0)">我的主页</a></li>
+				</ul>
+				<div class="navTab-panel tabsPageContent layoutBox">
+					<div>
+						<div class="accountInfo">
+							<p>欢迎光临, {$Think.session.loginUserName}</p>
+						</div>
+						<if condition="($roleEname eq 'customCenterWorker')">
+							<include file="Index:customCenter" />
+						<elseif condition="($roleEname eq 'businessManager')" />
+							<include file="Index:businessManager" />
+						<elseif condition="($roleEname eq 'logisticsAssigner')" />
+							<include file="Index:logisticsAssigner" />
+						</if>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+	<div id="footer">版权所有(C) <a href="http://www.shuren100.com" target="_blank">树人网</a> V{$Think.config.xpcms_version} ALL RIGHTS RESERVED</div>
+
+</body>
+
+</html>

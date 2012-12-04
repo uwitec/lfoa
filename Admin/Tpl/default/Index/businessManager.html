@@ -1,0 +1,17 @@
+<div class="page">
+	<div class="pageHeader">
+		报刊信息
+	</div>
+	<div class="pageContent" style="overflow:scroll; height:50px; font-size:14px;">
+		1、当前未提交的订单数据为：<span style="color:red; font-size:18px; font-weight:blod;">{$orderSaveNotCommitNum}</span>
+	</div>	
+	<div class="pageHeader">
+		报刊销售信息
+	</div>
+	<div class="pageContent" style="overflow:scroll; height:600px;">
+		<volist name="picUrlPath" id="picUrl">
+			<img src="{$picUrl}">
+		</volist>
+	</div>	
+</div>
+

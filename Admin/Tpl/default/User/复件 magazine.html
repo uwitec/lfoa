@@ -1,0 +1,44 @@
+
+<script language="javascript">
+$(function()
+{ 
+	$("#SelectAll").click(function()
+	{ 
+		$("input[type='checkbox']").attr("checked",'true');//全选
+	}); 
+
+	$("#ReverseSelectAll").click(function()
+	{ 
+		$("input[type='checkbox']").removeAttr("checked");//取消全选			
+	}); 
+});
+</script>
+<div class="page">
+	<div class="pageContent">
+	
+	<form action="__URL__/setMagazine" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" name="id" VALUE="{$EmployeeId}" />
+		<div class="pageFormContent" layoutH="58">
+		   使用频率(值越大，排序在前)
+			<volist id="item" name="MagazineList" >
+			<div class="unit">				
+				<input type="checkbox" name="postCode[{$key}]" value="{$item['postCode']}" <?php echo in_array($item["postCode"], $EmployeeNewspaperList) ? "checked" : "" ?>/>{$item['name']}&nbsp;<input type="text" size="10" name="operatingFrequency[{$key}]" value="<?php echo in_array($item['postCode'], $EmployeeNewspaperList) ? $operatingFrequencyList[$item['postCode']] : ''; ?>" />
+				&nbsp;
+			</div>
+			</volist>
+		</div>
+		<div class="formBar">
+			<ul style="float:left;">
+			<li><div class="button"><div class="buttonContent"><button type="button" id="SelectAll" >全选</button></div></div></li>
+			<li><div class="button"><div class="buttonContent"><button type="button" id="ReverseSelectAll">反选</button></div></div></li>
+			</ul>
+			<ul>
+			<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+			<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+

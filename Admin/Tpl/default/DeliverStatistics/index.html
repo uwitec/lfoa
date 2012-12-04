@@ -1,0 +1,248 @@
+<script language="javascript">
+$(function()
+{ 
+    $("#selectDeliverCol").change(function()
+	{ 
+		setSelectDeliverCol();
+    }); 
+	setSelectDeliverCol();
+});
+
+function setSelectDeliverCol()
+{
+	var showSelectDeliverCol = $('#showSelectDeliverCol');
+	var selectDeliverCol = $("#selectDeliverCol");
+	
+	if (selectDeliverCol.attr('checked')==true)
+	{
+		showSelectDeliverCol.show();
+	}
+	else
+	{
+		showSelectDeliverCol.hide();
+	}
+}
+
+$(function()
+{
+	$(".customClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    });
+
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    }); 
+	
+	$("#deliverStatisticsExpandOrContractDiv").hide();
+});
+
+var isDeliverStatisticsExpand = false;
+function deliverStatisticsExpandOrContract()
+{
+	if (false == isDeliverStatisticsExpand)
+	{
+		$("#deliverStatisticsExpandOrContractDiv").show();
+		isDeliverStatisticsExpand = true;
+		$("#deliverStatisticsExpandMore").text("收缩");
+	}
+	else
+	{
+		$("#deliverStatisticsExpandOrContractDiv").hide();
+		isDeliverStatisticsExpand = false;
+		$("#deliverStatisticsExpandMore").text("更多");
+	}
+}
+</script>
+
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="orderYear" value="{$_REQUEST.orderYear}"/>
+	<input type="hidden" name="beginMonth" value="{$_REQUEST.beginMonth}"/>
+	<input type="hidden" name="endMonth" value="{$_REQUEST.endMonth}"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="provinceID" value="{$_REQUEST.provinceID}"/>
+	<input type="hidden" name="postPeople" value="{$_REQUEST.postPeople}"/>
+	<input type="hidden" name="customID" value="{$_REQUEST.customID}"/>
+	<input type="hidden" name="cityName" value="{$_REQUEST.cityName}"/>
+	<input type="hidden" name="isCheckOut" value="{$_REQUEST.isCheckOut}"/>
+	<input type="hidden" name="isPrintSendLabel" value="{$_REQUEST.isPrintSendLabel}"/>
+	<input type="hidden" name="selectDeliverCol" value="{$_REQUEST.selectDeliverCol}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>年份：</label>
+					<input type="input" name="orderYear"  value="{$_REQUEST.orderYear}" size="9"/>					
+				</li>
+				<li>
+					<label>开始月份：</label>
+					<select name="beginMonth">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.beginMonth" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.beginMonth" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.beginMonth" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.beginMonth" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.beginMonth" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.beginMonth" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.beginMonth" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.beginMonth" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.beginMonth" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.beginMonth" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.beginMonth" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.beginMonth" value='12'>selected</eq> >十二月</option>
+					</select>
+				</li>
+				<li>
+					<label>截止月份：</label>
+					<select name="endMonth">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.endMonth" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.endMonth" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.endMonth" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.endMonth" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.endMonth" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.endMonth" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.endMonth" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.endMonth" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.endMonth" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.endMonth" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.endMonth" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.endMonth" value='12'>selected</eq> >十二月</option>
+					</select>						
+				</li>
+			</ul>
+			<a id="deliverStatisticsExpandMore" href="javascript:deliverStatisticsExpandOrContract()" style="float:left;">更多</a>
+			<div id="deliverStatisticsExpandOrContractDiv">
+				<ul class="searchContent">
+					<li  class="unitBox" style="width:240px">
+						<label>报刊名称：</label>
+						<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+						<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+						<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+						<a class="magazineClear" href="#">清空</a>					
+					</li>
+					<li>
+						<label>省份：</label>
+						<select name="provinceID">
+							<option value="">--请选择--</option>
+						<volist name="ProvinceList" id="ProvinceVo">
+							<option <eq name="_REQUEST.provinceID" value="$ProvinceVo.id" >selected</eq> value="{$ProvinceVo.id}">{$ProvinceVo.name}</option>
+						</volist>
+						</select>
+					</li>
+					<li>
+						<label>城市：</label>
+						<input type="input" name="cityName" value="{$_REQUEST.cityName}" size="9"/>					
+					</li>
+					<li>
+						<label>发行员：</label>
+						<select name="postPeople">
+							<option value="">--请选择--</option>
+						<volist name="PostPeopleList" id="PostPeopleVo">
+							<option <eq name="_REQUEST.postPeople" value="$PostPeopleVo.id" >selected</eq> value="{$PostPeopleVo.id}">{$PostPeopleVo.name}</option>
+						</volist>
+						</select>
+					</li>
+					<li  class="unitBox" style="width:240px">
+						<label>客户名称：</label>
+						<input name="customID" value="{$_REQUEST['customID']}" type="hidden">
+						<input name="customName" value="{$_REQUEST['customName']}" size="8" type="text" readonly="readonly"/>
+						<a class="btnLook" href="__APP__/CustomSelect/index" lookupGroup="" lookupName="customID">查找</a>&nbsp;&nbsp;
+						<a class="customClear" href="#">清空</a>
+					</li>			
+				</ul>
+				<ul class="searchContent">				
+					<li>
+						<label>是否分配</label>
+						<input type="checkbox" name="isCheckOut"  value='1' <eq name="_REQUEST.isCheckOut" value="1">checked</eq>/>					
+					</li>
+					<li>
+						<label>是否发货：</label>
+						<input type="checkbox" name="isPrintSendLabel" value="1" id="isPrintSendLabel" <if condition="$_REQUEST.isPrintSendLabel eq 1">checked</if> />					
+					</li>
+					<li>
+						<label>选择列：</label>
+						<input type="checkbox" name="selectDeliverCol" value="1" id="selectDeliverCol" <if condition="$_REQUEST.selectDeliverCol eq 1">checked</if> />					
+					</li>
+					
+				</ul>
+				<div id="showSelectDeliverCol">
+					<volist id="vo" name="colAllList" key="key">
+						<input type="checkbox" name="selectColArr[{$key - 1}]" value="1" <if condition="$vo.selected eq 1">checked</if> />{$vo.chName}&nbsp;&nbsp;  
+					</volist>
+				</div>
+			</div>
+			<div class="subBar">
+				<ul>
+					<li>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">查询</button>
+							</div>
+						</div>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="reset">条件重置</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+
+	<div class="pageContent">
+
+		<div class="panelBar">			
+			<ul class="toolBar">
+				<li><a class="icon" href="__URL__/export/{$searchStr}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>	
+			</ul>
+		</div>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="20" currentPage="{$currentPage}"></div>
+		</div>
+
+		<table class="table" width="100%" layoutH="180" id="PrintList">
+			<thead>
+			<tr>
+				<volist id="colVo" name="colList" key="key">
+				<th width="{$colVo.width}">{$colVo.chName}</th>
+				</volist>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr>
+					<volist id="colVo" name="colList" key="key">
+					<td>{$vo[$colVo['name']]}</td>
+					</volist>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+

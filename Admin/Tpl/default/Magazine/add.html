@@ -1,0 +1,61 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="insertPerson" value="{$InsertPerson}"/> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>发行代码：</label>
+				<input type="text" class="required" size="30" maxlength="20" name="postCode" />
+			</div>
+			<div class="unit">
+				<label>报刊名称：</label>
+				<input type="text" class="required" size="30" maxlength="20" name="name" />
+			</div>
+			<div class="unit">
+				<label>报刊全称：</label>
+				<input type="text" size="30" maxlength="20" name="longname" />
+			</div>
+			<div class="unit">
+				<label>所属分类：</label>
+				<select name="typeID">
+						<option value="">--请选择--</option>
+					<volist name="MagazineTypeList" id="MagazineTypeVo">
+						<option value="{$MagazineTypeVo.id}">{$MagazineTypeVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>报刊类别：</label>
+				<select name="sort">
+						<option value="">--请选择--</option>
+						<option value="报纸">报纸</option>
+						<option value="杂志">杂志</option>
+				</select>
+			</div>
+			<div class="unit">
+				<label>最大分包数：</label>
+				<input type="text" size="30" maxlength="20" name="quantityPackage" />
+			</div>
+			<div class="unit">
+				<label>库存管理员：</label>
+				<select name="dbPersonID">
+						<option value="">--请选择--</option>
+					<volist name="EmployeeList" id="Employeevo">
+						<option value="{$Employeevo.id}">{$Employeevo.employeeName}</option>
+					</volist>
+				</select>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

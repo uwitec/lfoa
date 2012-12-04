@@ -1,0 +1,182 @@
+<script language="javascript">
+$(function()
+{ 
+    $("#checkOutPrint").click(function()
+	{ 
+		var ids = '';
+		$("[name='checkOutPrintId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#checkOutPrint').attr('href', "__URL__/prePrint/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}
+		
+    }); 
+
+	$("#checkOutCancelPrint").click(function()
+	{ 
+		var ids = '';
+		$("[name='checkOutPrintId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#checkOutCancelPrint').attr('href', "__URL__/cancelPrint/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}
+		
+    }); 
+
+	$(function()
+	{
+		$(".customClear").click(function()
+		{ 
+			$(this).parent(".unitBox").children("input").each(
+				function()
+				{
+					$(this).attr("value", "");
+				}
+			);		
+		}); 
+
+		$(".magazineClear").click(function()
+		{ 
+			$(this).parent(".unitBox").children("input").each(
+				function()
+				{
+					$(this).attr("value", "");
+				}
+			);		
+		}); 
+	});
+});
+</script>
+
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="orderTime" value="{$_REQUEST.beginTime}"/>
+	<input type="hidden" name="orderTime" value="{$_REQUEST.endTime}"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="magazineName" value="{$_REQUEST['magazineName']}"/>
+	<input type="hidden" name="month" value="{$_REQUEST.month}"/>
+	<input type="hidden" name="customID" value="{$_REQUEST.customID}"/>
+	<input type="hidden" name="magazineOriginNameID" value="{$_REQUEST.magazineOriginNameID}"/>
+	<input type="hidden" name="isPrintCheckOut" value="{$_REQUEST.isPrintCheckOut}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">				
+				<li  class="unitBox" style="width:240px">
+					<label>报刊名称：</label>
+					<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+					<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+					<a class="magazineClear" href="#">清空</a>					
+				</li>
+				<li>
+					<label>月份：</label>
+					<select name="month">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.month" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.month" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.month" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.month" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.month" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.month" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.month" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.month" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.month" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.month" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.month" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.month" value='12'>selected</eq> >十二月</option>
+					</select>
+				</li>
+				
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">统计</button>
+							</div>
+						</div>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="reset">条件重置</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+
+	<div class="pageContent">
+
+		<div class="panelBar">			
+			<ul class="toolBar">
+				<li><a class="icon" href="__URL__/export/{$SearchSql}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>	
+			</ul>
+		</div>
+		
+		<table class="table" width="100%"  layoutH="180" id="PrintList">
+			<thead>
+			<tr>				
+				<th width="120">报刊名称</th>
+				<th width="120">发行代号</th>
+				<th width="60">月份</th>
+				<th width="80">期数</th>
+				<th width="80">期数全称</th>
+				<th width="80">入库数</th>
+				<th width="60">出库数</th>
+				<th width="60">现有库存数</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr>					
+					<td>{$vo.magazineName}</td>
+					<td>{$vo.postCode}</td>
+					<td>{$vo.termMonth}</td>
+					<td>{$vo.termName}</td>					
+					<td>{$vo.termLongName}</td>					
+					<td>{$vo.inputNum}</td>
+					<td>{$vo.outputNum}</td>					
+					<td>{$vo.nowStockNum}</td>					
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="100" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

@@ -1,0 +1,88 @@
+﻿<script language="javascript">
+$(function(){  
+	$('#classID').change(function(){
+		getGoodsInfo();
+	});
+
+	$("#customID").change(function(){
+		getClassSelectVal();
+	});
+}
+</script>
+
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" id="FeedbackAddForm" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">			
+			<div class="unit">				
+				<span class="unitBox" style="float:left;">
+				<label>客户名称：</label>
+					<input name="customID" value="" type="hidden" id="customID">
+					<input name="customName" value="" size="10" type="text"/>
+					<a class="btnLook" href="__APP__/CustomSelect/index" lookupGroup="" lookupName="customID">查找</a>&nbsp;&nbsp;
+					<a class="customClear" href="#">清空</a>
+					</span>
+			</div>
+			<div class="unit">
+				<label>联系人：</label>
+				<input type="text" name="contactPerson" size="10" maxlength="150"/>
+				<label>电话号码：</label>
+				<input type="text" name="tel" class="phone" size="10" maxlength="150"/>
+			</div>
+                        <div class="unit">
+				<label>报刊：</label>
+				<select name="postCode">
+						<option value="">--请选择--</option>
+					<volist name="MagazineList" id="Magazinevo">
+						<option value="{$Magazinevo['postCode']}">{$Magazinevo['name']}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>年度：</label>
+				<input type="text" class="alphanumeric" name="year" size="10" maxlength="100"/>			
+				<label>月份：</label>
+				<input type="text" name="month" size="10" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>期数：</label>
+				<input type="text" name="term" size="10" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>反馈内容：</label>
+				<textarea name="content" cols="50" rows="2"></textarea>
+			</div>
+			<div class="unit">
+				<label>处理结果：</label>
+				<textarea name="result" cols="50" rows="2"></textarea>
+			</div>
+			<div class="unit">
+			<label>处理人：</label>
+					<select name="resultPersonID" id="resultPersonID ">
+						<option value="">--请选择--</option>
+					<volist name="PostPeopleList" id="PostPeopleVo">
+						<option <eq name="_REQUEST.customID" value="$PostPeopleVo.id" >selected</eq> value="{$PostPeopleVo.id}">{$PostPeopleVo.name}</option>
+					</volist>
+					</select>
+			<label>处理时间：</label>	
+			<input type="text" name="reslutTime" value="{$reslutTime}" class="date" size="18" /><a class="inputDateButton" href="javascript:;">选择</a>
+			</div>	
+			<div class="unit">
+				<label>备注：</label>
+				<textarea name="memo" id="memo" cols="50" rows="2"></textarea>
+			</div>		
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

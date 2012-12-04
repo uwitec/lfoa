@@ -1,0 +1,45 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="insertPerson" value="{$InsertPerson}"/> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>报刊分类名称：</label>
+				<input type="text" class="required" size="30" maxlength="20" name="name" />
+			</div>
+			<div class="unit">
+				<label>报刊分类全称：</label>
+				<input type="text" size="30" maxlength="20" name="longname" />
+			</div>
+			<div class="unit">
+				<label>所属类别：</label>
+				<select name="sort">
+						<option value="">--请选择--</option>
+						<option value="报纸">报纸</option>
+						<option value="杂志">杂志</option>
+				</select>
+			</div>
+			<div class="unit">
+				<label>所属报刊：</label>
+				<select name="parentID">
+						<option value="">--请选择--</option>
+					<volist name="MagazineTypeList" id="MagazineTypeVo">
+						<option value="{$MagazineTypeVo.id}">{$MagazineTypeVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

@@ -1,0 +1,305 @@
+<script language="javascript" type="text/javascript"> 
+$(function()
+{
+	$(".customClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    }); 
+
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    }); 
+
+	$("#addNewPaper").click(function()
+	{ 
+		var ids = '';
+		$("[name='selectNewPaper[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#addNewPaper').attr('href', "__URL__/editNew/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}		
+    }); 
+
+	$("#editPaper").click(function()
+	{ 
+		var ids = '';
+		$("[name='selectNewPaper[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#editPaper').attr('href', "__URL__/edit/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}		
+    }); 
+
+	$("#orderManageDelete").click(function()
+	{ 
+		var ids = '';
+		$("[name='selectNewPaper[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#orderManageDelete').attr('href', "__URL__/foreverdelete/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);		
+		}
+    }); 
+
+	$("#orderManageSubmit").click(function()
+	{ 
+		var ids = '';
+		$("[name='selectNewPaper[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#orderManageSubmit').attr('href', "__URL__/orderSubmit/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);		
+		}
+    }); 
+
+});
+</script>
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="beginTime" value="{$_REQUEST.beginTime}"/>
+	<input type="hidden" name="endTime" value="{$_REQUEST.endTime}"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST['postCode']}"/>
+	<input type="hidden" name="magazineName" value="{$_REQUEST['magazineName']}"/>
+	<input type="hidden" name="customID" value="{$_REQUEST['customID']}"/>
+	<input type="hidden" name="customName" value="{$_REQUEST['customName']}"/>
+	<input type="hidden" name="isChecked" value="{$_REQUEST.isChecked}"/>
+	<input type="hidden" name="recPeople" value="{$_REQUEST.recPeople}"/>
+	<input type="hidden" name="recTelphone" value="{$_REQUEST.recTelphone}"/>
+	<input type="hidden" name="sendGoodsTypeID" value="{$_REQUEST.sendGoodsTypeID}"/>	
+	<input type="hidden" name="batch" value="{$_REQUEST.batch}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>开始日期：</label>
+					<input type="text" name="beginTime" class="date" readonly="true" value="{$_REQUEST.beginTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li>
+					<label>结束日期：</label>
+					<input type="text" name="endTime" class="date" readonly="true" value="{$_REQUEST.endTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>报刊名称：</label>
+					<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+					<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+					<a class="magazineClear" href="#">清空</a>					
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>客户名称：</label>
+					<input name="customID" value="{$_REQUEST['customID']}" type="hidden">					
+					<input name="customName" value="{$_REQUEST['customName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/CustomSelect/index" lookupGroup="" lookupName="customID">查找</a>&nbsp;&nbsp;
+					<a class="customClear" href="#">清空</a>					
+				</li>				
+				<li>
+					<label>是否审核:</label>
+					<select name="isChecked">
+						<option value="3" <if condition="$_REQUEST.isChecked eq 3"> selected </if>>全部</option>
+						<option value="2" <if condition="$_REQUEST.isChecked eq 2"> selected </if>>未提交</option>
+						<option value="1" <if condition="$_REQUEST.isChecked eq 1"> selected </if>>已审核</option>
+						<option value="0" <if condition="$_REQUEST.isChecked eq 0"> selected </if>>未审核</option>					
+					</select>					
+				</li>
+				<li>
+					<label>收货人：</label>
+					<input type="text" size="10" maxlength="20" name="recPeople" value="{$_REQUEST.recPeople}"/>
+				</li>
+				<li>
+					<label>手机：</label>
+					<input type="text" size="11" maxlength="20" name="recTelphone" value="{$_REQUEST.recTelphone}"/>
+				</li>
+				<li>
+					<label>发货方式：</label>
+					<select name="sendGoodsTypeID" style="width:100px">
+						<option value="">--请选择--</option>
+					<volist name="SendGoodsTypeList" id="SendGoodsTypeVo">
+						<option <eq name="_REQUEST.sendGoodsTypeID" value="$SendGoodsTypeVo.id" >selected</eq> value="{$SendGoodsTypeVo.id}">{$SendGoodsTypeVo.name}</option>
+					</volist>
+					</select>
+				</li>
+				<li>
+					<label>订单批次：</label>
+					<input type="input" name="batch" value="{$_REQUEST.batch}" size="9"/>						
+				</li>
+			<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<li>
+					<label>业务经理：</label>
+					<select name="employeeID">
+						<option value="">--请选择--</option>
+					<volist name="ManagerList" id="ManagerVo">
+						<option <eq name="_REQUEST.employeeID" value="$ManagerVo.id" >selected</eq> value="{$ManagerVo.id}">{$ManagerVo.name}</option>
+					</volist>
+					</select>				
+				</li>
+			</ul>
+			</if>
+			<div class="subBar">
+				<ul>
+					<li>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">查询</button>
+							</div>
+						</div>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="reset">条件重置</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add/navTabId/{$Think.const.MODULE_NAME}" target="dialog"  width="950" height="400" max="true" mask="true"><span>订单录入</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{id}/navTabId/{$Think.const.MODULE_NAME}" id="editPaper" target="dialog" width="900" height="700" max="true"  mask="true" warn="请选择一条记录"><span>订单编辑</span></a></li>
+				<li><a class="edit" href="__URL__/editNew/id/{id}/navTabId/{$Think.const.MODULE_NAME}" id="addNewPaper" target="dialog" width="900" height="700" max="true"  mask="true" warn="请选择一条记录"><span>新增报</span></a></li>
+				<li><a class="delete" href="__URL__/foreverdelete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" id="orderManageDelete" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>	
+				<li><a class="icon" href="__URL__/export/{$SearchStr}/pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" target="_blank" mask="true" ><span>导出</span></a></li>	
+				<li><a class="icon" href="__URL__/detail/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="900" height="600" max="true" mask="true"><span>详细</span></a></li>
+				<li><a class="edit" href="__URL__/orderSubmit/id/{id}/navTabId/{$Think.const.MODULE_NAME}" id="orderManageSubmit" target="ajaxTodo" title="你确定要提交吗？" warn="请选择一条记录"><span>订单提交</span></a></li>
+			</ul>
+		</div>
+		
+		<table class="table" width="1550" layoutH="200" id="orderManagePrintList">
+			<thead>
+			<tr>
+				<th width="30"><input type="checkbox" group="selectNewPaper[]" class="checkboxCtrl"></th>
+				<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<th width="80">业务经理</th>
+				</if>
+				<th width="100">日期</th>
+				<th width="60">批次</th>
+				<th width="80">客户</th>
+				<th width="80">收货人</th>
+				<th width="90">手机</th>
+				<th width="100">地址</th>
+				<th width="60">省份</th>
+				<th width="60">城市</th>
+				<th width="120">报刊</th>
+				<th width="60">份数</th>
+				<th width="40">起月</th>
+				<th width="40">止月</th>		
+				
+				<th width="170">单位</th>
+				<th width="80">班级</th>
+				<th width="80">付款人</th>
+				<th width="80">发货类型</th>
+				<th width="80">发货方式</th>
+				<th width="80">发货周期</th>
+				<th width="80">邮编</th>
+				<th width="50">磁带</th>
+				<th width="50">答案</th>
+				<th width="60">备注</th>
+				<th width="60" style="display:none;">是否单期</th>
+				<th width="60" style="display:none;">期数名称</th>
+				<th width="80">是否审核</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}" <if condition="$vo.isChecked eq 1"> <else />class="rowRed"</if>>
+					<td><input type="checkbox" name="selectNewPaper[]" value="{$vo.id}"></td>
+					<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+					<td>{$vo.employeeID|get_employee_name}</td>
+					</if>
+					<td>{$vo.orderTime|date='Y-m-d', ###}</td>
+					<td>{$vo.batch}</td>
+					<td>{$vo.customID|get_custom_name}</td>
+					<td>{$vo.recPeople}</td>
+					<td>{$vo.recTelphone}</td>
+					<td>{$vo.recAddress|msubstr=0,10}</td>
+					<td>{$vo.provinceID|get_province_name}</td>
+					<td>{$vo.cityName}</td>					
+					<td>{$vo.postCode|get_magazine_name}</td>
+					<td>{$vo.orderNum}</td>
+					<td>{$vo.beginOrderDate}</td>
+					<td>{$vo.endOrderDate}</td>	
+					
+					<td>{$vo.schoolID|get_custom_unit_name}</td>
+					<td>{$vo.class}</td>
+					<td>{$vo.payPerson}</td>
+					<td>{$vo.sendGoodsSortID|get_send_goods_sort_name}</td>
+					<td>{$vo.sendGoodsTypeID|get_send_goods_type_name}</td>
+					<td>{$vo.sendCyleID|get_send_order_cyle_name}</td>
+					<td>{$vo.zipCode}</td>
+					<td>{$vo.tapeNum}</td>
+					<td>{$vo.answerNum}</td>
+					<td>{$vo.memo}</td>
+					<td style="display:none;"><if condition="$vo.isSingle eq 1">是<else />否</if></td>
+					<td style="display:none;"><if condition="$vo.isSingle eq 1">{$vo.termID|get_magazine_terrm_name}</if></td>
+					<td><if condition="$vo.isChecked eq 2">未提交<elseif condition="$vo.isChecked eq 1"/>已提交<else />未审核</if></td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

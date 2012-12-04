@@ -1,0 +1,50 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>方式名称：</label>
+				<label>{$vo.name}</label>
+			</div>
+			<div class="unit">
+				<label>单位全称：</label>
+				<label>{$vo.longname}</label>
+			</div>
+			<div class="unit">
+				<label>单位电话1：</label>
+				<label>{$vo.telphone1}</label>
+			</div>
+			<div class="unit">
+				<label>单位电话2：</label>
+				<label>{$vo.telphone2}</label>
+			</div>
+			<div class="unit">
+				<label>单位电话3：</label>
+				<label>{$vo.telphone3}</label>
+			</div>
+			<div class="unit">
+				<label>单位地址：</label>
+				<label>{$vo.address}</label>
+			</div>
+			<div class="unit">
+				<label>邮政编码：</label>
+				<label>{$vo.postCode}</label>
+			</div>
+			<div class="unit">
+				<label>发货类型：</label>
+				<label>{$vo.sendGoodsSortID|get_send_goods_sort_name}</label>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+
