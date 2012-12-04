@@ -1,0 +1,228 @@
+<script language="javascript">
+$(function()
+{ 
+	$("#returnRegisterEdit").click(function()
+	{ 
+		var ids = '';
+		$("[name='returnRegisterId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+		}
+
+		if (ids)
+		{
+			$('#returnRegisterEdit').attr('href', "__URL__/edit/navTabId/{$Think.const.MODULE_NAME}/id/"+ids);
+		}
+				
+    }); 
+});
+
+$(function()
+{
+	$(".customClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    }); 
+
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+	}); 
+});
+</script>
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="orderTime" value="{$_REQUEST.beginTime}"/>
+	<input type="hidden" name="orderTime" value="{$_REQUEST.endTime}"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="month" value="{$_REQUEST.month}"/>
+	<input type="hidden" name="customID" value="{$_REQUEST.customID}"/>
+	<input type="hidden" name="isSendGoodsID" value="{$_REQUEST.isSendGoodsID}"/>
+</form>
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>					
+					<label>开始日期：</label>
+					<input type="text" name="beginTime" class="date" readonly="true" value="{$_REQUEST.beginTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li>					
+					<label>结束日期：</label>
+					<input type="text" name="endTime" class="date" readonly="true" value="{$_REQUEST.endTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>报刊名称：</label>
+					<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+					<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+					<a class="magazineClear" href="#">清空</a>					
+				</li>
+				<li>
+					<label>月份：</label>
+					<select name="month">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.month" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.month" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.month" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.month" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.month" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.month" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.month" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.month" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.month" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.month" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.month" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.month" value='12'>selected</eq> >十二月</option>
+					</select>
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>客户名称：</label>
+					<input name="customID" value="{$_REQUEST['customID']}" type="hidden">
+					<input name="customName" value="{$_REQUEST['customName']}" size="8" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/CustomSelect/index" lookupGroup="" lookupName="customID">查找</a>&nbsp;&nbsp;
+					<a class="customClear" href="#">清空</a>
+				</li>	
+				<li>
+					<label>收货人：</label>
+					<input type="text" size="10" maxlength="20" name="recPeople" value="{$_REQUEST.recPeople}"/>
+				</li>
+				<li>
+					<label>订单来源：</label>
+					<select name="magazineOriginNameID">
+						<option value="">--请选择--</option>
+					<volist name="MagazineOriginList" id="magazineOriginVo">
+						<option <eq name="_REQUEST.magazineOriginNameID" value="$magazineOriginVo.id" >selected</eq> value="{$magazineOriginVo.id}">{$magazineOriginVo.name}</option>
+					</volist>
+					</select>
+				</li>
+				<li>
+					<label>发行员：</label>
+					<select name="postPeople" id="postPeople">
+						<option value="">--请选择--</option>
+					<volist name="PostPeopleList" id="PostPeopleVo">
+						<option <eq name="_REQUEST.customID" value="$PostPeopleVo.id" >selected</eq> value="{$PostPeopleVo.id}">{$PostPeopleVo.name}</option>
+					</volist>
+					</select>
+				</li>
+				<li>
+					<label>发货单号：</label>
+					<input type="text" size="10" maxlength="20" name="sendGoodsID" value="{$_REQUEST.sendGoodsID}"/>
+				</li>
+				<li>
+					<label>是否登记</label>
+					<input type="checkbox" name="isReturnRegister" value='1' <eq name="_REQUEST.isReturnRegister" value="1">checked</eq>/>					
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">查询</button>
+							</div>
+						</div>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="reset">条件重置</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+
+	<div class="pageContent">
+
+		<div class="panelBar">			
+			<ul class="toolBar">
+				<li><a class="edit" id="returnRegisterEdit" href="__URL__/edit/id/{id}" target="dialog" width="700" height="350"  mask="true" warn="请选择一条记录"><span>退货信息</span></a></li>
+				<li><a class="icon" href="__URL__/export/{$searchStr}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>	
+				<li><a class="icon" href="__URL__/detail/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="900" height="600" max="true" mask="true"><span>详细</span></a></li>
+				<!--<li><a class="icon" href="javascript:$.printBox('PrintList')"><span>打印</span></a></li>-->
+			</ul>
+		</div>
+
+		<table class="table" width="100%" layoutH="165" id="PrintList">
+			<thead>
+			<tr>
+				<th width="30"><input type="checkbox" group="returnRegisterId[]" class="checkboxCtrl"></th>
+				<th width="40">期数</th>
+				<th width="60">收货人</th>
+				<th width="80">电话</th>
+				<th width="80">地址</th>
+				<th width="60">省份</th>
+				<th width="60">城市</th>
+				<th width="80">报刊名称</th>
+				<th width="40">份数</th>				
+				<th width="60">发行员</th>
+				<th width="80">发货方式</th>
+				<th width="80">单号</th>
+				<th width="40">退货份数</th>
+				<th width="80">登记人</th>
+				<th width="80">登记日期</th>
+				<th width="80">备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td><input name="returnRegisterId[]" value="{$vo.id}" type="checkbox"></td>
+					<td>{$vo.termID|get_magazine_terrm_name}</td>
+					<td>{$vo.recPeople}</td>
+					<td>{$vo.recTelphone}</td>
+					<td>{$vo.recAddress|msubstr=0,30}</td>
+					<td>{$vo.provinceID|get_province_name}</td>
+					<td>{$vo.cityName}</td>		
+					<td>{$vo.postCode|get_magazine_name}</td>
+					<td>{$vo.quantity}</td>					
+					<td>{$vo.postPeople|get_employee_name}</td>
+					<td>{$vo.sendGoodsTypeID|get_send_goods_type_name}</td>
+					<td>{$vo.sendGoodsID}</td>
+					<td>{$vo.returnQuantity}</td>
+					<td>{$vo.employeeID|get_employee_name}</td>
+					<td>{$vo.insertDate|date='Y-m-d', ###}</td>
+					<td>{$vo.memo}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

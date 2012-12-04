@@ -1,0 +1,53 @@
+<style>
+/*public*/
+body{background-color:#00407c; width:100%; height:100%;}
+body,h3,ul,li,h3,span{margin:0;padding:0;}
+#left_list ul li a{color:#FFF; text-decoration:none;}
+#left_list li a:hover{color:#3CF;text-decoration:none;}
+#left,#left h3,#left_list{float:left;}
+img{ border:0;}
+/*left*/
+#left{width:200px;height:100%;float:left; overflow:auto; margin-top:3px;}
+#left_listtitle{width:183px;height:31px;background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/index/left_h3bg.gif) no-repeat;line-height:31px;text-align:center;color:#F3FB08;font-size:16px; font-weight:bold; float:left;}
+#left_list{width:183px;text-align:center;background:#31a1e9; float:left; overflow:hidden;}
+#left_list ul li{list-style:none; display:inline-block;}
+#left_list ul li a{width:180px;display:block; line-height:20px;}
+#left_list ul li a:hover{background:#ffffff; width:180px;display:block; line-height:20px; position:relative; left:-10;}
+#line{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/index/left_liline.gif) no-repeat; width:200px; height:4px; float:left; overflow:hidden;}
+#column_jt{ float:left; width:9px; height:100%; margin:32% 0 0 0; display:inline; }
+#column_jt img{ width:9px; height:45px; float:left;}
+</style>
+<div id="left">
+<volist id="group" name="grouplist">
+    <div id="left_list">
+    	<div id="left_listtitle">{$group['title']}</div>
+        <ul>            
+            <volist id="item" name="menu" >
+
+			<neq name="item['name']|strtolower" value="public" >
+
+				<neq name="item['name']|strtolower" value="index" >
+
+				<eq name="item['group_id']" value="$group['id']">
+
+				<eq name="item['access']" value="1">
+
+				<li><a href="__APP__/{$item['name']}/index/" target="navTab" rel="{$item['name']}">{$item['title']}</a></li>
+				
+				<div id="line"></div>
+
+				</eq>
+
+				</eq>
+
+				</neq>
+
+			</neq>
+
+			</volist>
+			
+        </ul>
+    </div>
+</volist>
+</div>
+

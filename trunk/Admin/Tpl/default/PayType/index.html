@@ -1,0 +1,75 @@
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="name" value="{$_REQUEST.name}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>付款方式：</label>
+					<input type="text" name="name" value="{$_REQUEST.name}" size="10"/>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add" target="dialog" width="400" height="200" mask="true"><span>新增</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{id}" target="dialog" width="400" height="200"  mask="true" warn="请选择一条记录"><span>编辑</span></a></li>
+				<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<li><a class="delete" href="__URL__/foreverdelete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>
+				<else />
+				<li><a class="delete" href="__URL__/delete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>
+				</if>
+			</ul>
+		</div>
+
+		<table class="list" width="100%" layoutH="140">
+			<thead>
+			<tr>
+				<th width="40">编号</th>
+				<th width="80">付款方式</th>
+				<th width="150">付款方式全称</th>
+				<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<th width="60">状态</th>
+				</if>
+
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo['id']}">
+					<td>{$vo['id']}</td>
+					<td>{$vo['name']}</td>
+					<td>{$vo['longname']}</td>
+					<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+					<td><if condition="($vo.status neq '-1')">正常<else/><a callback="navTabAjaxMenu" target="ajaxTodo" href="__URL__/recycle/id/{$vo.id.}/navTabId/{$Think.const.MODULE_NAME}"><font color="red">还原</font></a></if></td>
+					</if>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

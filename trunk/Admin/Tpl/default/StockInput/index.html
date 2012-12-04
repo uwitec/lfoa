@@ -1,0 +1,129 @@
+<script language="javascript">
+$(function()
+{
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+	}); 
+});
+</script>
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="magazineName" value="{$_REQUEST['magazineName']}"/>
+	<input type="hidden" name="year" value="{$_REQUEST.year}"/>
+	<input type="hidden" name="month" value="{$_REQUEST.month}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li  class="unitBox" style="width:240px">
+					<label>报刊名称：</label>
+					<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+					<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+					<a class="magazineClear" href="#">清空</a>					
+				</li>
+				<li>
+					<label>年度：</label>
+					<input type="text" size="10" maxlength="20" name="year" value="{$year}"/>
+				</li>
+				<li>
+					<label>月份：</label>
+					<select name="month">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.month" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.month" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.month" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.month" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.month" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.month" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.month" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.month" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.month" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.month" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.month" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.month" value='12'>selected</eq> >十二月</option>
+					</select>
+				</li>
+				<li>
+					<label>入库日期：</label>
+					<input type="text" name="inputDate" class="date" readonly="true" value="{$_REQUEST.inputDate}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+			</li>
+				<li>
+					<label>入库编号：</label>
+					<input type="text" size="10" maxlength="20" name="inputCode" value="{$_REQUEST.inputCode}"/>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add" target="dialog" width="420" height="300" mask="true"><span>新增</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{id}" target="dialog" width="420" height="200"  mask="true" warn="请选择一条记录"><span>编辑</span></a></li>
+				<li><a class="delete" href="__URL__/foreverdelete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" id="stockInputDelete"  target="navTabTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>	
+				<li><a class="icon" href="__URL__/export/{$SearchStr}navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>	
+				<!--<li><a class="icon" href="__URL__/detail/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="420" height="550" mask="true"  warn="请选择一条记录"><span>打印</span></a></li>-->	
+			</ul>
+		</div>
+
+		<table class="table" width="100%" layoutH="160">
+			<thead>
+			<tr>
+				<th width="30"><input type="checkbox" group="selectNewPaper[]" class="checkboxCtrl"></th>
+				<th width="100">入库编号</th>
+				<th width="100">报刊名称</th>
+				<th width="80">报刊期数</th>
+				<th width="80">月份</th>
+				<th width="80">年度</th>
+				<th width="80">份数</th>
+				<th width="80">入库人</th>
+				<th width="80">入库时间</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td><input type="checkbox" name="selectNewPaper[]" value="{$vo.id}"></td>
+					<td>{$vo.inputCode}</td>
+					<td>{$vo.magazineName}</td>
+					<td>{$vo.magazineTerrmName}</td>
+					<td>{$vo.month}</td>
+					<td>{$vo.year}</td>
+					<td>{$vo.stockNum}</td>
+					<td>{$vo.makeID|get_employee_name}</td>
+					<td>{$vo.inputDate|date='Y-m-d', ###}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

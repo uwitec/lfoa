@@ -1,0 +1,35 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>报刊分类名称：</label>
+				<label>{$vo.name}</label>
+			</div>
+			<div class="unit">
+				<label>报刊分类全称：</label>
+				<label>{$vo.longname}</label>
+			</div>
+			<div class="unit">
+				<label>所属类别：</label>
+				<label>{$vo.sort}</label>
+			</div>
+			<div class="unit">
+				<label>所属期刊：</label>
+				<label>{$vo['parentID']|get_magazine_type_name}</label>
+			</div>
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

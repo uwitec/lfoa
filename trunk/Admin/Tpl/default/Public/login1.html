@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>河南省绿风文化发展有限公司登陆窗口</title>
+<meta name="keywords" content="河南省绿风文化发展有限公司登陆窗口" />
+<meta name="description" content="河南省绿风文化发展有限公司登陆窗口" />
+<style>
+/*public*/
+body{ margin:0; padding:0; background:#7bd703 repeat center;}
+img{ border:0;}
+p,span,li,ul,ol,b,h1,h2,h3,h4,h5,h6{ margin:0; padding:0;}
+li{ list-style:none;}
+a{ color:#666; text-decoration:none;}
+a:hover{ color:#F90; text-decoration:none;}
+/*main*/
+#main{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/login_bg1.png) no-repeat; width:1024px; height:768px; margin:100px auto; position:relative;}
+.regsiter{ width:478px; height:421px; position:relative; top:165px; left:280px;}
+.regsiter_top{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/login_topimg1.png) no-repeat; width:478px; height:26px;}
+* html .regsiter_top {  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/login_topimg1.png");  background:none;  }
+.regsiter_menu{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/login_shop1.png) no-repeat; width:478px; height:70px;}
+* html .regsiter_user{  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/login_bg2.png");  background:none;  }
+.regsiter_user{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/login_bg2.png) no-repeat; width:478px; height:323px;}
+.logo{ width:105px; height:70px;float:left; background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/logo.png) no-repeat;}
+* html .logo {  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/logo.png");  background:none;  }
+.logo_text{ width:370px; height:70px; float:left; background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/logo_text.png) no-repeat;}
+* html .logo_text{  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/logo_text.png");  background:none;  }
+/*用户登录*/
+.user_tab{ width:340px; height:200px; float:left; margin:30px 69px; display:inline; }
+#user_name,#password,#verty{ height:20px; line-height:20px;color:#F60; font-size:20px; font-weight:bold;margin:8px 0; float:left; display:inline; width:340px; }
+#user_name span,#password span,#verty span{ width:100px; text-align:right; float:left;}
+#user_name input,#password input{ border:1px solid #CCC; height:20px; line-height:20px;background:none; width:210px;}
+#verty input{ border:1px solid #CCC; height:20px; line-height:20px;background:none; width:150px;}
+#remember_password{ float:left; margin:3px 0; display:inline; color:#666; font-size:12px; height:20px; line-height:20px; width:340px;}
+#remember_password input{ border:0; margin-left:95px; float:left;}
+#banner{color:#F60; font-size:20px; font-weight:bold;margin:8px 0; float:left; display:inline; width:340px;}
+#banner input{border:0; background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/login_btn1.gif) no-repeat; width:144px; height:48px; font-size:30px; color:#FFF; font-weight:bold; margin:0 100px;}
+</style>
+<!--[if IE 6]>
+
+<style type="text/css">
+
+#content .bg01{ background-image: none; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/bg_01.png', sizingMethod='image'); }
+
+#content .bg04{ background-image: none; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/bg_04.png', sizingMethod='image'); }
+
+</style>
+
+<![endif]-->
+<script language="JavaScript">
+
+function keydown(e){
+
+	var e = e || event;
+
+	if (e.keyCode==13)
+
+	{
+
+		document.login.submit();
+
+	}
+
+}
+
+</script>
+</head>
+<body>
+<div id="main">
+	<div class="regsiter">
+    	<div class="regsiter_top"></div>
+        <div  class="regsiter_menu">
+        	<div class="logo"></div>
+            <div class="logo_text"></div>
+        </div>
+        <form method='post' name="login" id="loginform" action="__URL__/checkLogin/" >
+        <div class="regsiter_user">
+        	<div class="user_tab">
+            	<div id="user_name">
+            		<span>用户名：</span>
+            		  <input type="text" name="account"/>
+            	</div>
+                <div id="password">
+                	<span>密		码：</span>
+                      <input type="password" name="password"/>
+                    </div>
+                    <div id="verty">
+                    <span>验证码：</span>
+                      <input type="text" onkeydown="keydown(event)" name="verify" />
+                      	<img class="code" id="verifyImg" src="__URL__/verify/" onclick="this.src+='?' + Math.random();" alt="点击刷新验证码" />
+                    </div>
+                    <!--<div id="remember_password">
+                    	<input type="checkbox" tabindex="5" onclick="regist()" name="复选框组1" value="复选框" id="isCookie"> 记住密码
+                    </div>-->
+                    <div id="banner"><input type="submit" value="登&nbsp;&nbsp;陆" /></div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

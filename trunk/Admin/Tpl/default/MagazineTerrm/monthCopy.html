@@ -1,0 +1,60 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/saveMonthCopy/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>来源报刊：</label>
+				<select name="sourcePostCode" class="required">
+					<option value="">--请选择--</option>
+				<volist name="MagazineList" id="MagazineVo">
+					<option value="{$MagazineVo.postCode}">{$MagazineVo.name}</option>
+				</volist>
+				</select><font color="red">*</font>
+			</div>
+
+			<div class="unit">
+				<label>目的报刊：</label>
+				<select name="destPostCode" class="required">
+					<option value="">--请选择--</option>
+				<volist name="MagazineList" id="MagazineVo">
+					<option value="{$MagazineVo.postCode}">{$MagazineVo.name}</option>
+				</volist>
+				</select><font color="red">*</font>
+			</div>
+			<div class="unit">
+				<label>月份：</label>
+				<select name="month" class="required">
+					<option value="">--请选择--</option>	
+					<option value="1">一月</option>
+					<option value="2">二月</option>
+					<option value="3">三月</option>
+					<option value="4">四月</option>
+					<option value="5">五月</option>
+					<option value="6">六月</option>
+					<option value="7">七月</option>
+					<option value="8">八月</option>
+					<option value="9">九月</option>
+					<option value="10">十月</option>
+					<option value="11">十一月</option>
+					<option value="12">十二月</option>
+				</select><font color="red">*</font>
+			</div>
+			
+			<div class="unit">
+				<label>年度：</label>
+				<input type="text" class="digists required" name="year" size="30" maxlength="100" value="{$currentYear}" title="格式(示例：2012)" />
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

@@ -1,0 +1,55 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>单位名称</label>
+				<input type="text" class="required" size="30" maxlength="20" name="name" value="{$vo.name}"/>
+			</div>
+			<div class="unit">
+				<label>单位全称</label>
+				<input type="text" size="30" maxlength="20" name="longname" value="{$vo.longname}"/>
+			</div>
+			<div class="unit">
+				<label>单位电话1</label>
+				<input type="text" name="telphone1" class="phone" size="30" maxlength="150" value="{$vo.telphone1}"/>
+			</div>
+			<div class="unit">
+				<label>单位电话2</label>
+				<input type="text" name="telphone2" class="phone" size="30" maxlength="150" value="{$vo.telphone2}"/>
+			</div>
+			<div class="unit">
+				<label>单位电话3</label>
+				<input type="text" name="telphone3" class="phone" size="30" maxlength="150" value="{$vo.telphone3}"/>
+			</div>
+			<div class="unit">
+				<label>单位地址</label>
+				<input type="text" name="address" size="30" maxlength="150" value="{$vo.address}"/>
+			</div>
+			<div class="unit">
+				<label>邮政编码</label>
+				<input type="text" name="postCode" class="digits"  size="30" maxlength="100" value="{$vo.postCode}"/>
+			</div>
+			<div class="unit">
+				<label>是否学校</label>
+				<select name="isSchool">
+					<option value="">--请选择--</option>
+					<option <eq name="vo.isSchool" value="1" >selected</eq> value="1">是</option>
+					<option <eq name="vo.isSchool" value="0" >selected</eq> value="0">否</option>
+				</select>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

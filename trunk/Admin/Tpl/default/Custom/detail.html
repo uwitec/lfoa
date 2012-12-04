@@ -1,0 +1,75 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>姓名：</label>
+				<label>{$vo.name}</label>			
+				<label>年龄：</label>
+				<label>{$vo.age}</label>
+			</div>
+			<div class="unit">
+				<label>性别：</label>
+				<label>
+					<eq name="vo.isOldClient" value="1">男</eq>
+					<eq name="vo.isOldClient" value="0">女</eq>
+				</label>
+
+				<label>是否老客户：</label>
+				<label>
+					<eq name="vo.isOldClient" value="1">是</eq>
+					<eq name="vo.isOldClient" value="0">否</eq>
+				</label>
+			</div>	
+			<div class="unit">
+				<label>单位：</label>
+				<label>{$vo['UnitID']|get_custom_unit_name}</label>
+			</div>
+			<div class="unit">
+				<label>身份证：</label>
+				<label>{$vo.cardID}</label>
+			</div>
+			<div class="unit">
+				<label>通讯地址：</label>
+				<label>{$vo.address}</label>
+			</div>
+			<div class="unit">
+				<label>手机：</label>
+				<label>{$vo.telphone1}</label>
+			
+				<label>电话：</label>
+				<label>{$vo.telphone2}</label>
+			</div>
+			<div class="unit">
+				<label>备用电话：</label>
+				<label>{$vo.telphone3}</label>
+			
+				<label>传真：</label>
+				<label>{$vo.fax}</label>
+			</div>
+			<div class="unit">
+				<label>邮政编码：</label>
+				<label>{$vo.postCode}</label>
+			
+				<label>省份：</label>
+				<label>{$vo.provinceID|get_province_name}</label>
+			</div>
+			<div class="unit">
+				<label>所属县市区：</label>
+				<label>{$vo.cityName}</label>
+			</div>
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

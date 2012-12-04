@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>河南省绿风文化发展有限公司登陆窗口</title>
+<meta name="keywords" content="河南省绿风文化发展有限公司登陆窗口" />
+<meta name="content-type" content="河南省绿风文化发展有限公司登陆窗口" />
+<style>
+body{ margin:0; padding:0;}
+a{ color:#F60; text-decoration:none;}
+a:hover{ color:#999; text-decoration:none;}
+img{ border:0;}
+p.span,li,ul,h1,h2,h3,h4,h5,h6{ margin:0; padding:0;}
+/*main*/
+#top{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/line.gif) bottom repeat-x; margin-top:230px;}
+.top{ background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/logo_tz.png)no-repeat; width:842px; height:82px; margin:0 auto;;}
+.top{filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/logo_tz.png"); }
+.content{ margin:0 auto; width:700px;}
+.error_tab{ width:700px; margin:60px auto;}
+.error_btn{ width:118px; height:118px; background:url(__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/error.png) no-repeat; float:left;}
+*html .error_btn{filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="__PUBLIC__/Theme/Admin/Dwz/themes/default/images/login/error.png"); background:none; }
+.error_text{ float:right; width:570px; text-align:center;}
+.error_text h1{ color:#F30;}
+.error_text span{ font-size:16px; margin:30px 0 0 0; float:left; display:inline; width:570px; text-align:center; color:#666;}
+</style> 
+</head>
+<body>
+<div  id="top">
+	<div class="top"></div>
+</div>
+<div class="content">
+	<div class="error_tab">
+    	<div  class="error_btn"></div>
+        <div class="error_text">
+        	<h1>{$message}{$error|htmlspecialchars|nl2br}</h1>
+            <span>
+            	<!--请重新输入密码，页面将在1s内自动跳转至登录窗口，请<a href="#" target="_blank" title="重新登录入">重新登录</a>-->
+            	您可以选择 [ <a href="{$FCS.SERVER.PHP_SELF}">重试</a> ] [ <a href="javascript:history.back()">返回</a> ] [ <a href="javascript:window.close()">关闭</a> ] 或者 [ <a href="__URL__?m=index&a=index">回到首页</a> ]
+            </span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

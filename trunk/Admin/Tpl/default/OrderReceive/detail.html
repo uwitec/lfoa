@@ -1,0 +1,178 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/update/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+
+			<p>
+				<span  class="BlockHeader">状态信息</span>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>状态：</label>
+				<label>{$vo.orderStatus}</label>
+			</p>
+			<p>
+				<label>业务员：</label>
+				<label>{$vo.employeeID|get_employee_name}</label>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<span  class="BlockHeader">客户信息</span>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>客户名称：</label>
+				<label>{$vo.customID|get_custom_name}</label>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<span  class="BlockHeader">订单信息</span>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>签单日期：</label>
+				<label>{$vo.orderTime|date='Y-m-d',###}</label>
+			</p>
+			<p>
+				<label>订单编号：</label>
+				<label>{$vo.contractID}</label>
+			</p>
+			<p>
+				<label>付款方式：</label>
+				<label>{$vo.payType|get_pay_type_name}</label>
+			</p>
+			<p>
+				<label>付款日期：</label>
+				<label>{$vo.payTime|date='Y-m-d',###}</label>
+			</p>
+			<p>
+				<label>付款人：</label>
+				<label>{$vo.payPerson}</label>
+			</p>
+			<p>
+				<label>报刊名称：</label>
+				<label>{$vo.postCode|get_magazine_name}</label>
+			</p>
+			<p>
+				<label>份数：</label>
+				<label>{$vo.orderNum}</label>
+			</p>
+			<p>
+				<label>年度：</label>
+				<label>{$vo.orderYear}</label>
+			</p>
+			<p>
+				<label>起订月份：</label>
+				<label>{$vo.beginOrderDate}</label>
+			</p>
+			<p>
+				<label>截止月份：</label>
+				<label>{$vo.endOrderDate}</label>
+			</p>
+			<p>	
+				<label>报刊期数：</label>
+				<label>{$vo.termID|get_magazine_terrm_name}</label>
+				<span style="display:inline;">
+					<input type="checkbox" name="isSingle" <eq name="vo.isSingle" value="1">checked</eq>/>
+					是否单期
+				</span>
+			</p>
+			<p>
+				<label>订单批次：</label>
+				<label>{$vo.batch}</label>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<span  class="BlockHeader">收货信息</span>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>收货人：</label>
+				<label>{$vo.recPeople}</label>
+			</p>
+			<p>
+				<label>电话：</label>
+				<label>{$vo.recTel}</label>
+			</p>
+			<p>
+				<label>手机：</label>
+				<label>{$vo.recTelphone}</label>
+			</p>
+			<p>
+				<label>包装方式：</label>
+				<label>{$vo.packetType}</label>
+			</p>
+			<p>
+				<label>省份：</label>
+				<label>{$vo.provinceID|get_province_name}</label>
+			</p>
+			<p>
+				<label>城市：</label>
+				<label>{$vo.cityName}</label>
+			</p>
+			<p>
+				<label>发货类型：</label>
+				<label>{$vo.sendGoodsSortID|get_send_goods_sort_name}</label>
+				</select>
+			</p>
+			<p>
+				<label>邮编：</label>
+				<label>{$vo.zipCode}</label>
+				</select>
+			</p>
+			<p>
+				<label>发货方式：</label>
+				<label>{$vo.sendGoodsTypeID|get_send_goods_type_name}</label>
+				</select>
+			</p>
+			<p>
+				<label>收货地址：</label>
+				<label>{$vo.recAddress}</label>
+			</p>
+			<p>
+				<label>发货周期：</label>
+				<label>{$vo.sendCyleID|get_send_order_cyle_name}</label>
+			</p>
+			<p>			   
+				<label>学校：</label>
+				<label>{$vo.schoolID|get_custom_unit_name}</label>
+				<span style="display:inline;">
+					 <input type="checkbox" name="isSchool" <eq name="vo.isSchool" value="1">checked</eq>/>
+					是否学校
+				</span>
+			</p>
+			<p>
+				<label>班级：</label>
+				<label>{$vo.class}</label>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<span  class="BlockHeader">备注信息</span>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>磁带数：</label>
+				<label>{$vo.tapeNum}</label>
+			</p>	
+			<p>
+				<label>答案数：</label>
+				<label>{$vo.answerNum}</label>
+			</p>	
+			<p>
+				<label>备注：</label>
+				<label>{$vo.memo}</label>
+			</p>			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

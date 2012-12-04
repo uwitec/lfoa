@@ -1,0 +1,77 @@
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="customId" value="{$customId}"/>
+</form>
+
+<div class="page">
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add/customId/{$customId}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="650" height="500" mask="true"><span>新增</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{id}/customId/{$customId}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="650" height="500"  mask="true" warn="请选择一条记录"><span>编辑</span></a></li>
+				<li><a class="edit" href="__URL__/detail/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="650" height="500"  mask="true" warn="请选择一条记录"><span>详细</span></a></li>
+				<li><a class="delete" href="__URL__/foreverdelete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？" warn="请选择一条记录"><span>删除</span></a></li>	
+				<li><a class="icon" href="__URL__/export/customId/{$customId}/navTabId/{$Think.const.MODULE_NAME}" target="_blank" mask="true" ><span>导出</span></a></li>	
+			</ul>
+		</div>
+
+		<table class="table" width="100%" layoutH="86">
+			<thead>
+			<tr>
+				<th width="95">客户</th>
+				<th width="95">收货人</th>
+				<th width="60">省份</th>
+				<th width="80">所属县市区</th>
+				<th width="100">手机</th>	
+				<th width="90">电话</th>	
+				<th width="100">备用电话</th>	
+				<th width="90">传真</th>	
+				<th width="80">地址</th>
+				<th width="65">邮编</th>
+				<th width="85">付款人</th>
+				
+				<th width="85">发货方式</th>
+				<th width="85">发货周期</th>
+				<th width="120">单位/学校</th>
+				<th width="60">学校</th>
+				<th width="70">班级</th>
+				<th width="100">备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td width="95">{$vo.customName}</td>
+					<td width="95">{$vo.recName}</td>
+					<td width="60">{$vo.provinceName}</td>
+					<td width="80">{$vo.cityName}</td>
+					<td width="100">{$vo.phone}</td>
+					<td width="90">{$vo.tel}</td>	
+					<td width="100">{$vo.spareTel}</td>
+					<td width="90">{$vo.fax}</td>	
+					<td width="80">{$vo.address|msubstr=0,10}</td>
+					<td width="65">{$vo.zipCode}</td>
+					<td width="75">{$vo.payName}</td>					
+					<td width="85">{$vo.sendTypeName}</td>
+					<td width="85">{$vo.sendCyleName}</td>
+					<td width="120">{$vo.customUnitName}</td>
+					<td width="60"><if condition="$vo.isSchool eq 1">是<else />否</if></td>
+					<td width="70">{$vo.className}</td>
+					<td width="100">{$vo.memo|msubstr=0,10}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

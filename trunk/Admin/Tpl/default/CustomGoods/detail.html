@@ -1,0 +1,75 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>收货人</label>
+				<label>{$vo.recName}</label>			
+				<label>付款人</label>
+				<label>{$vo.payName}</label>
+			</div>
+			<div class="unit">
+				<label>电话</label>
+				<label>{$vo.tel}</label>
+			
+				<label>手机</label>
+				<label>{$vo.phone}</label>
+			</div>
+			<div class="unit">
+				<label>备用电话</label>
+				<label>{$vo.spareTel}</label>
+			
+				<label>传真</label>
+				<label>{$vo.fax}</label>
+			</div>
+			<div class="unit">
+				<label>地址</label>
+				<label>{$vo.address}</label>
+			</div>
+			<div class="unit">
+				<label>邮编：</label>
+				<label>{$vo.zipCode}</label>
+			
+				<label>省份：</label>
+				<label>{$vo.provinceID|get_province_name}</label>
+			</div>
+			<div class="unit">
+				<label>所属县市区：</label>
+				<label>{$vo.cityName}</label>
+			</div>
+			<div class="unit">
+				<label>发货类型：</label>
+				<label>{$vo.sendSortID|get_send_goods_sort_name}</label>
+			</div>
+			<div class="unit">
+				<label>单位/学校：</label>
+				<label>{$vo.schoolID|get_custom_unit_name}</label>
+			</div>
+			<div class="unit">
+				<label>是否学校</label>
+				<label>
+					<eq name="vo.isSchool" value="1">是</eq>
+					<eq name="vo.isSchool" value="0">否</eq>
+				</label>
+			</div>
+			<div class="unit">
+				<label>班级</label>
+				<label>{$vo.className}</label>
+			</div>
+			<div class="unit">
+				<label>备注：</label>
+				<label>{$vo.memo}</label>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

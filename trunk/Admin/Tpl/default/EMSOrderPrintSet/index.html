@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>绿风OA办公系统-EMS单据打印维护</title>
+
+<script language="javascript" src="__PUBLIC__/Printer/LodopFuncs.js"></script>
+</head>
+<body>
+<div class="page">
+		<p>EMS单据打印样式维护：</p>
+		<table border="1" width="100%">
+			<tr>
+		    <td width="9%" align="center"><a href="javascript:myheight100()">适高显示</a></td>
+		    <td width="10%" align="center"><a href="javascript:myNormal()">正常显示</a></td>
+		    <td width="9%" align="center"><a href="javascript:myWidth100()">适宽显示</a></td>
+		    <td width="18%" align="center">选择打印机
+		    <select id="emsOrderPrintSetPrinterList" size="1">
+		    </select>
+		    </td>
+		    <td width="10%" align="center"><a href="javascript:myPrintOne()">打印本页</a></td>
+		    <td width="18%" align="center"><a href="javascript:myPrintSetup()">打印维护</a></td>
+		    <td width="18%" align="center"><a href="javascript:myPrintDesign()">打印设计</a></td>
+		  </tr>
+			<tr>
+    		<td width="100%" colspan="11">
+				<object id="emsOrderPrintSetLODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=800 height=500>
+					<embed id="emsOrderPrintSetLODOP_EM" type="application/x-print-lodop" width=800 height=500 pluginspage="__PUBLIC__/Printer/install_lodop.exe"></embed>
+				</object>
+    		</td>
+  		</tr>
+  </table>
+</div>
+<script language="javascript" type="text/javascript">
+
+var LODOP;
+// 声明为全局变量
+var iWindowMode = 0;
+var LODOP;
+function myGetPrinters()
+{
+   var html = '<option value="">--请选择--</option>';
+   LODOP = getLodop(document.getElementById('emsOrderPrintSetLODOP'), document.getElementById('emsOrderPrintSetLODOP_EM'));
+   iPrinterCount = LODOP.GET_PRINTER_COUNT();
+   for(var i = 0; i < iPrinterCount; i ++ )
+   {
+      html += "<option value='"+i+"'>" + LODOP.GET_PRINTER_NAME(i) + "</option>";
+   }
+   document.getElementById("emsOrderPrintSetPrinterList").innerHTML = html;
+}
+// 打印标签
+function addMagzine(offsetTop, iLabel)
+{
+
+   iTop = 50;
+   iLeft = 40;
+   iHeight = 20;
+   if (iLabel % 2 == 0)  iLeft = 400;
+
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop , iLeft , 100, iHeight, "小教语文");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop , iLeft + 100 , 40 , iHeight, "1期");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop , iLeft + 100 + 40 , 70 , iHeight, "2012-04-14");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop , iLeft + 100 + 40 + 70 , 55 , iHeight, "第100页");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop , iLeft + 100 + 40 + 70 + 55, 80 , iHeight, "长通物流");
+
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight, iLeft , 160 , iHeight, "邮编：4560021");
+
+   LODOP.SET_PRINT_STYLE("FontSize", 11);
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 2, iLeft , 200 , iHeight, "山东临沂市大辛庄联校");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 2, iLeft + 200 , 150 , iHeight, "(含小教数学2分)");
+
+   LODOP.SET_PRINT_STYLE("FontSize", 9);
+
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 3, iLeft , 90 , iHeight, "李芯逸");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 3, iLeft + 90 , 60 , iHeight, "数量200");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 3, iLeft + 90 + 60 , 40 , iHeight, "2-6");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 3, iLeft + 90 + 60 + 40, 50 , iHeight, "印刷品");
+
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 4, iLeft , 70 , iHeight, "38#发行员");
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 4, iLeft + 70, 270 , iHeight, "河南教育读物发行总社有限公司 0371-65965766");
+
+   LODOP.ADD_PRINT_TEXT(iTop + offsetTop + iHeight * 5, iLeft , 350 , iHeight, "郑州市红旗路东段99号  邮编450008");
+}
+function myheight100()
+{
+   iWindowMode = 0;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myNormal()
+{
+   iWindowMode = 1;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myWidth100()
+{
+   iWindowMode = 2;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myPrintOne()
+{
+   CreatePage(iWindowMode);
+   if (LODOP.PRINT()) alert("打印成功！");
+}
+;
+function myPrintSetup()
+{
+   CreatePage(iWindowMode);
+   LODOP.PRINT_SETUP();
+}
+;
+function myPrintDesign()
+{
+   CreatePage(iWindowMode);
+   LODOP.PRINT_DESIGN();
+}
+;
+function CreatePage(iWindowMode)
+{
+   LODOP = getLodop(document.getElementById('emsOrderPrintSetLODOP'), document.getElementById('emsOrderPrintSetLODOP_EM'));
+   if(LODOP != null)
+   {
+      offsetTop = 0;
+      LODOP.PRINT_INIT("绿风OA办公系统_EMS单据");
+      // LODOP.SET_PRINT_PAGESIZE(3, 0, 0, "A4");
+      LODOP.SET_PRINT_PAGESIZE(1, "209mm", "113mm", "");
+      // 设置纸张高度
+      LODOP.ADD_PRINT_TEXT(106, 120, 85, 20, "寄件人姓名");
+      LODOP.ADD_PRINT_TEXT(106, 265, 100, 20, "寄件人电话");
+      LODOP.ADD_PRINT_TEXT(131, 168, 194, 20, "寄件人单位名称");
+      LODOP.ADD_PRINT_TEXT(157, 125, 228, 57, "寄件人的详细地址");
+      LODOP.ADD_PRINT_TEXT(276, 73, 163, 20, "内件品名");
+      LODOP.ADD_PRINT_TEXT(274, 255, 100, 20, "内件数量");
+      LODOP.ADD_PRINT_TEXT(108, 434, 100, 20, "收件人姓名");
+      LODOP.ADD_PRINT_TEXT(110, 587, 100, 20, "收件人电话");
+      LODOP.ADD_PRINT_TEXT(130, 484, 212, 30, "收件人单位名称");
+      LODOP.ADD_PRINT_TEXT(162, 441, 252, 53, "收件人的详细地址");
+
+      LODOP.SET_SHOW_MODE("PREVIEW_IN_BROWSE", 1);
+      // 界面内嵌到页面内
+      LODOP.SET_PREVIEW_WINDOW(iWindowMode, 3, 0, 0, 0, "");
+      // 隐藏工具条，选定宽高比例模式
+
+      intPrintNO = document.getElementById("emsOrderPrintSetPrinterList").value;
+      if (intPrintNO != "") LODOP.SET_PRINTER_INDEX(intPrintNO);
+      // 指定所选打印机
+   }
+}
+myNormal();
+myGetPrinters();
+</script>
+</body>
+</html>

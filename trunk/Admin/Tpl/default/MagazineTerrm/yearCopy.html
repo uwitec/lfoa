@@ -1,0 +1,45 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/saveYearCopy/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="id" value="{$vo.id}" /> 
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>来源报刊：</label>
+				<select name="sourcePostCode" class="required">
+					<option value="">--请选择--</option>
+				<volist name="MagazineList" id="MagazineVo">
+					<option <eq name="MagazineVo.postCode" value="$vo.postCode"> selected </eq>
+					value="{$MagazineVo.postCode}">{$MagazineVo.name}</option>
+				</volist>
+				</select><font color="red">*</font>
+			</div>
+
+			<div class="unit">
+				<label>目的报刊：</label>
+				<select name="destPostCode" class="required">
+					<option value="">--请选择--</option>
+				<volist name="MagazineList" id="MagazineVo">
+					<option <eq name="MagazineVo.postCode" value="$vo.postCode"> selected </eq>
+					value="{$MagazineVo.postCode}">{$MagazineVo.name}</option>
+				</volist>
+				</select><font color="red">*</font>
+			</div>
+			
+			<div class="unit">
+				<label>年度：</label>
+				<input type="text" class="digists required" name="year" value="{$currentYear}" size="30" maxlength="100" value="{$vo.year}" title="格式(示例：2012)" />
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

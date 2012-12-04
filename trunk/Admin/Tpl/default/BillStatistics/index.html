@@ -1,0 +1,138 @@
+<script language="javascript">
+$(function()
+{ 
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+	}); 
+
+});
+</script>
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="orderYear" value="{$_REQUEST.orderYear}"/>
+	<input type="hidden" name="endMonth" value="{$_REQUEST.endMonth}"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="otherMonth" value="{$_REQUEST.otherMonth}"/>
+	<input type="hidden" name="employeeID" value="{$_REQUEST.employeeID}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>年份：</label>
+					<input type="input" name="orderYear"  value="{$_REQUEST.orderYear}" size="9"/>					
+				</li>
+				<li>
+					<label>截止月份：</label>
+					<select name="endMonth">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.endMonth" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.endMonth" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.endMonth" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.endMonth" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.endMonth" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.endMonth" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.endMonth" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.endMonth" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.endMonth" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.endMonth" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.endMonth" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.endMonth" value='12'>selected</eq> >十二月</option>
+					</select>
+				</li>
+				<li>
+					<label>包含后续月份：</label>
+					<input type="checkbox" name="otherMonth"  value="1" <eq name="_REQUEST.otherMonth" value="1" >checked</eq>/>					
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>报刊名称：</label>
+					<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+					<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+					<a class="magazineClear" href="#">清空</a>					
+				</li>
+				<li>
+					<label>业务经理：</label>
+					<select name="employeeID">
+						<option value="">--请选择--</option>
+					<volist name="ManagerList" id="ManagerVo">
+						<option <eq name="_REQUEST.employeeID" value="$ManagerVo.id" >selected</eq> value="{$ManagerVo.id}">{$ManagerVo.name}</option>
+					</volist>
+					</select>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">查询</button>
+							</div>
+						</div>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="reset">条件重置</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+
+	<div class="pageContent">
+
+		<div class="panelBar">			
+			<ul class="toolBar">
+				<li><a class="icon" href="__URL__/export/{$searchStr}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>	
+			</ul>
+		</div>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="20" currentPage="{$currentPage}"></div>
+		</div>
+
+		<table class="table" width="100%" layoutH="180" id="PrintList">
+			<thead>
+			<tr>
+				<volist id="colVo" name="colList" key="key">
+				<th width="{$colVo.width}">{$colVo.chName}</th>
+				</volist>
+				<volist id="monthArrayVo" name="monthArray" key="key">
+				<th width="80">{$monthArrayVo.colNmae}</th>
+				</volist>
+				<th width="80">总数</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr>
+					<volist id="colVo" name="colList" key="key">
+					<td>{$vo[$colVo['name']]}</td>
+					</volist>
+					<volist id="monthArrayVo" name="monthArray" key="key">
+					<td>{$vo[$monthArrayVo['name']]}</td>
+					</volist>
+					<td>{$vo['sumQuantity']}</td>					
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+

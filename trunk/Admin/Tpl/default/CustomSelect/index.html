@@ -1,0 +1,91 @@
+
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="cityName" value="{$_REQUEST.cityName}"/>
+	<input type="hidden" name="provinceID" value="{$_REQUEST.provinceID}"/>
+	<input type="hidden" name="name" value="{$_REQUEST.name}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form rel="pagerForm" onsubmit="return dialogSearch(this);" action="__URL__" method="post">
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>省份：</label>
+					<select name="provinceID">
+						<option value="">--请选择--</option>
+					<volist name="ProvinceList" id="ProvinceVo">
+						<option <eq name="_REQUEST.provinceID" value="$ProvinceVo.id" >selected</eq> value="{$ProvinceVo.id}">{$ProvinceVo.name}</option>
+					</volist>
+					</select>
+				</li>  
+				<li>
+					<label>城市：</label>
+					<input type="text" size="10" maxlength="20" name="cityName" value="{$_REQUEST.cityName}"/>
+				</li>
+				<li>
+					<label>客户姓名：</label>
+					<input type="text" name="name" value="{$_REQUEST.name}" size="10"/>					
+				</li>
+				<li>
+					<label>是否老客户</label>
+					<input type="checkbox" name="isOldClient" value='1' <eq name="_REQUEST.isOldClient" value="1">checked</eq>/>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" multLookup="orgId" warn="请选择客户">选择所选</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+
+
+	<div class="pageContent">
+
+		<table class="table" layoutH="118" targetType="dialog" width="100%">
+			<thead>
+				<tr>
+					<th width="30"><input type="checkbox" class="checkboxCtrl" group="orgId" /></th>
+					<th width="80">选择操作</th>
+					<th width="60">姓名</th>
+					<th width="150">单位</th>
+					<th width="60">省份</th>
+					<th width="80">是否老客户</th>
+					<th width="150">地址</th>					
+				</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr>
+					<td><input type="checkbox" name="orgId" value="{customID:'<php>echo $vo['id'];</php>', customName:'<php>echo $vo['customName'];</php>'}"/></td>
+					<td>
+						<a class="btnSelect" href="javascript:$.bringBack({customID:'<php>echo $vo['id'];</php>', customName:'<php>echo $vo['customName'];</php>'})"><b>选择</b></a>
+					</td>
+					<td>{$vo.customName}</td>
+					<td>{$vo.customUnitName|msubstr=0,10}</td>
+					<td>{$vo.provinceName}</td>
+					<td>
+						<eq name="vo['isOldClient']" value="1" >
+						是
+						<else/>
+						否
+						</eq>
+					</td>
+					<td>{$vo.address|msubstr=0,10}</td>					
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="dialog" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+	</div>
+</div>

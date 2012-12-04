@@ -1,0 +1,88 @@
+<div class="page">
+	<div class="pageHeader">
+<style type="text/css">
+.listContent li
+{
+	float:left;
+}
+</style>
+		<div class="searchBar">
+			<ul class="listContent">
+				<li>					
+					<label>签单日期：</label>
+					<input type="text" name="orderTime" readonly="true" value="{$vo.orderTime|date='Y-m-d', ###}"/>
+				</li>
+				<li>
+					<label>报刊名称：</label>
+					<input type="text" name="postCode" readonly="true" value="{$vo.postCode|get_magazine_name}"/>
+				</li>
+				<li>
+					<label>起始月份：</label>
+					<input type="text" name="beginOrderDate" readonly="true" value="{$vo.beginOrderDate}"/>
+				</li>
+				<li>
+					<label>截止月份：</label>
+					<input type="text" name="endOrderDate" readonly="true" value="{$vo.endOrderDate}"/>
+				</li>
+				<li>
+					<label>起始期数：</label>
+					<input type="text" name="beginTerm" readonly="true" value="{$vo.beginTerm}"/>
+				</li>
+				<li>
+					<label>截止期数：</label>
+					<input type="text" name="endTerm" readonly="true" value="{$vo.endTerm}"/>
+				</li>
+			</ul>
+			<div class="divider"></div>
+			<ul class="listContent">
+				<li>					
+					<label>收件人：</label>
+					<input type="text" name="recPeople" readonly="true" value="{$vo.recPeople}"/>
+				</li>
+				<li>
+					<label>收货地址：</label>
+					<input type="text" name="recAddress" readonly="true" value="{$vo.recAddress}"/>
+				</li>
+			</ul>
+		</div>
+		</form>
+	</div>
+	
+	<form method="post" action="__URL__/doConvert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="id" value="{$vo.id}" /> 
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">确认转换</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">返回</button></div></div></li>	
+			</ul>
+		</div>
+
+		<table class="list" width="100%" layoutH="138" id="PrintList">
+			<thead>
+			<tr>
+				<th width="60">编号</th>
+				<th width="80">期数</th>
+				<th width="100">份数</th>
+				<th width="80">月份</th>
+				<th width="80">年度</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="TermList" key="key">
+				<tr>
+					<td>{$key}</td>
+					<td>{$vo.name}</td>
+					<td>{$vo.orderNum}</td>
+					<td>{$vo.month}</td>
+					<td>{$vo.year}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+	</div>
+	</form>
+	
+</div>
+

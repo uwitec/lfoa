@@ -1,0 +1,136 @@
+<script language="javascript">
+$(function(){  
+	$('#sendSortID').change(function(){
+		getGoodsSendTypeInfo();
+	});
+});
+
+function getGoodsSendTypeInfo()
+{
+	$.getJSON(
+		"__URL__/getSelect/type/2/sendSortID/"+ $("#sendSortID").val(),
+		function(json)
+		{         
+			var sendTypeID = $("#sendTypeID");         
+			$("option",sendTypeID).remove();   
+			$.each(json,function(index,array)
+			{             
+				var option = "<option value='"+array['id']+"'>"+array['title']+"</option>";
+				sendTypeID.append(option);         
+			});     
+		}
+	); 
+}
+</script>
+
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="customID" value={$customId} >
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>收货人：</label>
+				<input type="text" class="required" size="10" maxlength="20" name="recName" />
+			
+				<label>付款人：</label>
+				<input type="text" name="payName" class="required" size="10" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>电话：</label>
+				<input type="text" size="10" maxlength="20" name="tel" />		
+				<label>手机：</label>
+				<input type="text" size="10" maxlength="20" name="phone" />
+			</div>
+			<div class="unit">
+				<label>备用电话：</label>
+				<input type="text" size="10" maxlength="20" name="spareTel" />		
+				<label>传真：</label>
+				<input type="text" size="10" maxlength="20" name="fax" />
+			</div>
+			<div class="unit">
+				<label>地址：</label>
+				<input type="text" name="address" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>邮编：</label>
+				<input type="text" name="zipCode" size="10" maxlength="150"/>			
+				<label>省份：</label>
+				<select name="provinceID" id="provinceID">
+						<option value="">--请选择--</option>
+					<volist name="ProvinceList" id="ProvinceVo">
+						<option value="{$ProvinceVo.id}">{$ProvinceVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>所属县市区：</label>
+				<input type="text" name="cityName" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>发货类型：</label>
+				<select id="sendSortID">
+						<option value="">--请选择--</option>
+					<volist name="SendSortList" id="SendSortVo">
+						<option value="{$SendSortVo.id}">{$SendSortVo.name}</option>
+					</volist>
+				</select>
+			
+				<label>发货方式：</label>
+				<select name="sendSortID" id="sendTypeID">
+						<option value="">--请选择--</option>
+					<volist name="SendGoodsTypeList" id="SendGoodsTypeVo">
+						<option value="{$SendGoodsTypeVo.id}">{$SendGoodsTypeVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>发货周期：</label>
+				<select name="sendOrderCyleID" id="sendOrderCyleID">
+						<option value="">--请选择--</option>
+					<volist name="SendOrderCyleList" id="SendOrderCyleVo">
+						<option value="{$SendOrderCyleVo.id}">{$SendOrderCyleVo.name}</option>
+					</volist>
+				</select>
+			
+				<label>包装方式：</label>
+				<input type="text" name="packetType" size="10" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>单位/学校：</label>
+				<select name="schoolID" id="schoolID">
+						<option value="">--请选择--</option>
+					<volist name="SchoolList" id="SchoolVo">
+						<option value="{$SchoolVo.id}">{$SchoolVo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="unit">
+				<label>是否学校：</label>
+				<select name="isSchool">
+					<option value="">--请选择--</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</div>
+			<div class="unit">
+				<label>班级：(<font color="red">多个班级请用#隔开</font>)</label>
+				<textarea rows="2" cols="45" name="className" class="textInput valid"></textarea>
+			</div>
+			<div class="unit">
+				<label>备注：</label>
+				<textarea rows="3" cols="45" name="memo" class="textInput valid"></textarea>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

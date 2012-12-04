@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>绿风OA办公系统-出库单打印维护</title>
+
+<script language="javascript" src="__PUBLIC__/Printer/LodopFuncs.js"></script>
+</head>
+<body>
+<div class="page">
+		<p>出库单打印样式维护：</p>
+		<table border="1" width="100%">
+			<tr>
+		    <td width="9%" align="center"><a href="javascript:myheight100()">适高显示</a></td>
+		    <td width="10%" align="center"><a href="javascript:myNormal()">正常显示</a></td>
+		    <td width="9%" align="center"><a href="javascript:myWidth100()">适宽显示</a></td>
+		    <td width="18%" align="center">选择打印机
+				<select id="checkOutSetPrinterList" size="1">
+				</select>
+		    </td>
+		    <td width="10%" align="center"><a href="javascript:myPrintOne()">打印本页</a></td>
+		    <td width="18%" align="center"><a href="javascript:myPrintSetup()">打印维护</a></td>
+		  </tr>
+			<tr>
+    		<td width="100%" colspan="11">
+				<object id="checkOutSetLODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=800 height=500>
+					<embed id="checkOutSetLODOP_EM" type="application/x-print-lodop" width=800 height=500 pluginspage="__PUBLIC__/Printer/install_lodop.exe"></embed>
+				</object>
+    		</td>
+  		</tr>
+  </table>
+</div>
+<script language="javascript" type="text/javascript">
+
+var iWindowMode = 0;
+var LODOP;
+function myGetPrinters()
+{
+   var html = '<option value="">--请选择--</option>';
+   LODOP = getLodop(document.getElementById('checkOutSetLODOP'), document.getElementById('checkOutSetLODOP_EM'));
+   iPrinterCount = LODOP.GET_PRINTER_COUNT();
+   for(var i = 0; i < iPrinterCount; i ++ )
+   {
+      html += "<option value='"+i+"'>" + LODOP.GET_PRINTER_NAME(i) + "</option>";
+   }
+   document.getElementById("checkOutSetPrinterList").innerHTML = html;
+}
+// 打印表格
+function addtable(offsetTop)
+{
+   LODOP.ADD_PRINT_SHAPE(2, 10 + offsetTop, 43, 700, 250, 0, 2, "#000000");
+   // 外框
+   LODOP.ADD_PRINT_SHAPE(1, 50 + offsetTop, 44, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(1, 90 + offsetTop, 44, 700, 1, 0, 1, "#000000");
+   // 横线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 100, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 300, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 350, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 450, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 520, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 600, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.ADD_PRINT_SHAPE(0, 50 + offsetTop, 630, 1, 40, 0, 1, "#000000");
+   // 竖线
+   LODOP.SET_PRINT_STYLE("FontSize", 20);
+   LODOP.ADD_PRINT_TEXT(20 + offsetTop, 350, 200, 25, "出库单");
+   LODOP.SET_PRINT_STYLE("FontSize", 12);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 50, 80, 25, "邮发给");
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 300, 80, 25, "发行员");
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 450, 80, 25, "出库途径");
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 600, 80, 25, "编号");
+}
+
+// 打印一些文字
+function addTitle(offsetTop, address, publisher, sendtype, no, manager, date)
+{
+   LODOP.SET_PRINT_STYLE("FontSize", 10);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 110, 150, 25, address);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 370, 80, 25, publisher);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 530, 80, 25, sendtype);
+   LODOP.ADD_PRINT_TEXT(60 + offsetTop, 640, 80, 25, no);
+
+   LODOP.ADD_PRINT_TEXT(220 + offsetTop, 450, 300, 25, "签名：" + manager + "  日期：" + date);
+}
+
+// 打印期刊明细 有可能多条
+function addMagzine(offsetTop, line, magzineStr)
+{
+   // 出库明细循环 间距30
+   LODOP.ADD_PRINT_TEXT(65 + line * 25 + offsetTop, 50, 600, 25, magzineStr);
+}
+function myheight100()
+{
+   iWindowMode = 0;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myNormal()
+{
+   iWindowMode = 1;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myWidth100()
+{
+   iWindowMode = 2;
+   CreatePage(iWindowMode);
+   LODOP.PREVIEW();
+}
+;
+function myPrintOne()
+{
+   CreatePage(iWindowMode);
+   if (LODOP.PRINT()) alert("打印成功！");
+}
+;
+function myPrintSetup()
+{
+   CreatePage(iWindowMode);
+   LODOP.PRINT_SETUP();
+}
+;
+function CreatePage(iWindowMode)
+{
+   LODOP = getLodop(document.getElementById('checkOutSetLODOP'), document.getElementById('checkOutSetLODOP_EM'));
+   if(LODOP != null)
+   {
+      offsetTop = 0;
+      LODOP.PRINT_INITA(2, 20, 900, 500, "绿风OA办公系统_出库单");
+      // 打印表格
+      addtable(offsetTop);
+      // 标题文字
+      addTitle(offsetTop, "郑州市纬五路", "郭巍巍", "邮发", "50", "             ", "              ")
+
+      // 期刊目前3条1个表格
+      addMagzine(offsetTop, 1, "刊名：英语小三1  起期：20  止期：25   份数：500" );
+      addMagzine(offsetTop, 2, "刊名：英语小四 2 起期：20   止期：25   份数：300" );
+      addMagzine(offsetTop, 3, "刊名：英语小五 3 起期：20   止期：25   份数：200" );
+      offsetTop = offsetTop + 255;
+      // 打印表格
+      addtable(offsetTop);
+      // 标题文字
+      addTitle(offsetTop, "南阳市纬五路", "郭巍巍", "邮发", "51", "             ", "              ")
+
+      // 期刊目前3条1个表格
+      addMagzine(offsetTop, 1, "刊名：数学小三1  起期：20  止期：25   份数：500" );
+      addMagzine(offsetTop, 2, "刊名：数学小四 2 起期：20   止期：25   份数：300" );
+      addMagzine(offsetTop, 3, "刊名：数学小五 3 起期：20   止期：25   份数：200" );
+
+      offsetTop = offsetTop + 255;
+      // 打印表格
+      addtable(offsetTop);
+      // 标题文字
+      addTitle(offsetTop, "登州市纬五路", "郭巍巍", "邮发", "51", "             ", "              ")
+
+      // 期刊目前3条1个表格
+      addMagzine(offsetTop, 1, "刊名：学习报小三1  起期：20  止期：25   份数：500" );
+      addMagzine(offsetTop, 2, "刊名：学习报小四 2 起期：20   止期：25   份数：300" );
+      addMagzine(offsetTop, 3, "刊名：学习报小五 3 起期：20   止期：25   份数：200" );
+
+      LODOP.SET_SHOW_MODE("PREVIEW_IN_BROWSE", 1);
+      LODOP.SET_SHOW_MODE("HIDE_PAPER_BOARD", 1);
+      // 界面内嵌到页面内
+      LODOP.SET_PREVIEW_WINDOW(iWindowMode, 3, 0, 0, 0, "");
+      // 隐藏工具条，选定宽高比例模式
+
+      intPrintNO = document.getElementById("checkOutSetPrinterList").value;
+      if (intPrintNO != "") LODOP.SET_PRINTER_INDEX(intPrintNO);
+      // 指定所选打印机
+   }
+}
+
+myNormal();
+myGetPrinters();
+
+</script>
+</body>
+</html>

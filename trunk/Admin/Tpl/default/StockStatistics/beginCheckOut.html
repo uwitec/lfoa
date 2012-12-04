@@ -1,0 +1,139 @@
+<script language="javascript" src="__PUBLIC__/Printer/LodopFuncs.js"></script>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="__PUBLIC__/Printer/install_lodop.exe"></embed>
+</object> 
+
+<script language="javascript">
+var LODOP; //声明为全局变量
+function myPreview() {	
+	LODOP=getLodop(document.getElementById('LODOP'),document.getElementById('LODOP_EM'));  
+	LODOP.PRINT_INIT("绿风OA办公系统_出库单");
+	LODOP.SET_PRINT_STYLE("FontSize",10);
+	createAllPages();
+	if (LODOP.PREVIEW())
+	{
+		$.getJSON(
+		"__URL__/doPrint/navTabId/{$Think.const.MODULE_NAME}/id/{$id}",
+		function(json)
+		{         
+			if (json['status'])
+			{
+				alertMsg.correct(json['msg']);
+			}
+			else
+			{
+				alertMsg.error(json['msg']);
+			}
+			if (json['navTabId'])
+			{
+				navTab.reload(null, {}, json['navTabId']);
+			}
+			$.pdialog.closeCurrent();
+		}
+	); 
+	}
+	else
+	{
+		
+	}
+};
+
+function createAllPages()
+{
+	index = 0;
+	offsetTop = 0;
+	<volist name="printList" id="printVo" key="key">
+	if ((index % 3) == 0)
+	{
+		LODOP.NewPage();
+		offsetTop = 0;
+	}	
+	offsetTop =  255 * (index % 3);
+	addTable(offsetTop);
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,110,150,25,"{$printVo.recAddress}");
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,370,80,25,"{$printVo.postPeople|get_employee_name}");
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,530,80,25,"{$printVo.sendGoodsTypeID|get_send_goods_type_name}");
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,640,80,25,"{$key}");
+	LODOP.ADD_PRINT_TEXT(offsetTop + 230,450,300,25,"签名：               日期：{$todayDate}     ");
+    <volist name="printVo['magazineList']" id="subVo" key="subKey">
+		LODOP.ADD_PRINT_TEXT(offsetTop + 90 + ({$subKey} * 25),50,600,25,"刊名：{$subVo.magazineName} {$subVo.termName}  起期：{$subVo.beginTermID|get_magazine_terrm_name}  止期：{$subVo.endTermID|get_magazine_terrm_name}   份数：{$subVo.sendNum}");
+	</volist>
+
+	index++;
+
+	</volist>
+	
+};	
+
+/* 打印表格 */
+function addTable(offsetTop)
+{
+	LODOP.ADD_PRINT_RECT(offsetTop + 10,43,700,250,0,2);
+	LODOP.ADD_PRINT_LINE(offsetTop + 50,44,offsetTop + 51,744,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,44,offsetTop + 91,744,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,100,offsetTop + 50,101,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,300,offsetTop + 50,301,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,350,offsetTop + 50,351,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,450,offsetTop + 50,451,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,520,offsetTop + 50,521,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,600,offsetTop + 50,601,0,1);
+	LODOP.ADD_PRINT_LINE(offsetTop + 90,630,offsetTop + 50,631,0,1);
+	LODOP.ADD_PRINT_TEXT(offsetTop + 20,350,200,25,"出库单");
+	LODOP.SET_PRINT_STYLEA(0,"FontSize",20);
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,50,80,25,"邮发给");
+	LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,300,80,25,"发行员");
+	LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,450,80,25,"出库途径");
+	LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+	LODOP.ADD_PRINT_TEXT(offsetTop + 60,600,80,25,"编号");
+	LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+}
+</script>
+
+
+<div class="page">
+
+	<div class="pageContent">
+
+		<div class="panelBar">			
+			<ul class="toolBar">
+				<li><input type="button" value="确认出库" onClick="CheckOut()"/></li>
+				<li><input type="button" value="打印预览" onClick="myPreview()"/></li>
+			</ul>
+		</div>
+
+		<table class="table" width="100%" layoutH="88" id="PrintList">
+			<thead>
+			<tr>
+				<th width="50">编号</th>
+				<th width="180">报刊名称</th>
+				<th width="80">月份</th>
+				<th width="80">期数</th>
+				<th width="80">份数</th>
+				<th width="60">发行员</th>
+				<th width="80">发货方式</th>				
+				<th width="80">是否打印出库单</th>
+				<th width="80">出库单号</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}" key="key">
+					<td>{$key + 1}</td>
+					<td>{$vo.magazineName}</td>
+					<td>{$vo.termMonth}</td>
+					<td>{$vo.termName}</td>
+					<td>{$vo.sendNum}</td>
+					<td>{$vo.postPeople|get_employee_name}</td>
+					<td>{$vo.sendGoodsTypeID|get_send_goods_type_name}</td>
+					<td><if condition="$vo.isPrintCheckOut eq 1">是<else />否</if></td>
+					<td>{$vo.checkOutNum}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+

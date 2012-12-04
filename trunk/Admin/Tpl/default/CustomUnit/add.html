@@ -1,0 +1,55 @@
+<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/insert/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+		    <input type="hidden" name="employeeID" value="{$employeeID}"/>
+			<div class="unit">
+				<label>单位名称</label>
+				<input type="text" class="required" size="30" maxlength="20" name="name" />
+			</div>
+			<div class="unit">
+				<label>单位全称</label>
+				<input type="text" size="30" maxlength="20" name="longname" />
+			</div>
+			<div class="unit">
+				<label>单位电话1</label>
+				<input type="text" name="telphone1" class="phone" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>单位电话2</label>
+				<input type="text" name="telphone2" class="phone" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>单位电话3</label>
+				<input type="text" name="telphone3" class="phone" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>单位地址</label>
+				<input type="text" name="address" size="30" maxlength="150"/>
+			</div>
+			<div class="unit">
+				<label>邮政编码</label>
+				<input type="text" name="postCode" class="digits"  size="30" maxlength="100"/>
+			</div>
+			<div class="unit">
+				<label>是否学校</label>
+				<select name="isSchool">
+					<option value="">--请选择--</option>
+					<option value="1">是</option>
+					<option value="0">否</option>
+				</select>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+

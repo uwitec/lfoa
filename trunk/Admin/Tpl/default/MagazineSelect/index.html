@@ -1,0 +1,134 @@
+<script language="javascript">
+$(function(){ 
+    $("#sort").change(function(){ 
+        getSelectVal(); 
+    }); 
+
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    }); 
+});
+
+function getSelectVal()
+{
+	var sortIndex = 0;
+	if ($("#sort").val() == '报纸')
+	{
+		sortIndex = 1;
+	}
+	else if ($("#sort").val() == '杂志')
+	{
+		sortIndex = 2;
+	}
+	else
+	{
+		sortIndex = 3;
+	}
+
+	$.getJSON(
+		"__URL__/getSelect/type/1/sort/" + sortIndex,
+		function(json)
+		{         
+			var typeID = $("#typeID");         
+			$("option",typeID).remove();   
+			$.each(json,function(index,array)
+			{             
+			
+				var option = "<option value='"+array['id']+"'>"+array['title']+"</option>";             
+				typeID.append(option);         
+			});     
+		}
+	); 
+} 
+</script>
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="typeID" value="{$_REQUEST.typeID}"/>
+	<input type="hidden" name="sort" value="{$_REQUEST.sort}"/>
+	<input type="hidden" name="name" value="{$_REQUEST.name}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return dialogSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li style="width:200px;">
+					<label>所属分类：</label>
+					<select name="sort" id="sort">
+						<option value="">--请选择--</option>
+						<option <eq name="_REQUEST.sort" value="报纸" >selected</eq> value="报纸">报纸</option>
+						<option <eq name="_REQUEST.sort" value="杂志" >selected</eq> value="杂志">杂志</option>
+				</select>
+				</li>
+				<li style="width:210px;">
+					<label>报刊类别：</label>
+					<select name="typeID" style="width:120px" id="typeID">
+						<option value="">--请选择--</option>
+					<volist name="MagazineTypeList" id="MagazineTypeVo">
+						<option <eq name="_REQUEST.typeID" value="$MagazineTypeVo.id" >selected</eq>
+						value="{$MagazineTypeVo['id']}">{$MagazineTypeVo['name']}</option>
+					</volist>
+				</select>
+				</li>	
+				<li>
+					<label>报刊名称：</label>
+					<input type="text" name="name" value="{$_REQUEST.name}" size="10"/>					
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" multLookup="orgId" warn="请选择客户">选择所选</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<table class="table" width="100%" targetType="dialog" layoutH="140">
+			<thead>
+			<tr>
+				<th width="30"><input type="checkbox" class="checkboxCtrl" group="orgId" /></th>
+				<th width="80">选择操作</th>
+				<th width="100">发行代码</th>
+				<th width="150">报刊名称</th>
+				<th width="80">所属报刊</th>
+				<th width="80">所属分类</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td><input type="checkbox" name="orgId" value="{postCode:'<php>echo $vo['postCode'];</php>', magazineName:'<php>echo $vo['magazineName'];</php>'}"/></td>
+					<td>
+						<a class="btnSelect" href="javascript:$.bringBack({postCode:'<php>echo $vo['postCode'];</php>', magazineName:'<php>echo $vo['magazineName'];</php>'})"><b>选择</b></a>
+					</td>
+					<td>{$vo.postCode}</td>
+					<td>{$vo.magazineName}</td>
+					<td>{$vo.magazineTypeName}</td>
+					<td>{$vo.sort}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="dialog"  totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

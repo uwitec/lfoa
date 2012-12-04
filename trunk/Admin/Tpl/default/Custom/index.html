@@ -1,0 +1,182 @@
+<script language="javascript">
+$(function()
+{
+    $("#customForerverDelete").click(function()
+	{ 
+		var ids = '';
+		$("[name='customId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#customForerverDelete').attr('href', "__URL__/foreverdelete/id/"+ids+"/navTabId/{$Think.const.MODULE_NAME}");
+		}
+    }); 
+});
+
+$(function()
+{
+	$("#customDelete").click(function()
+	{ 
+		var ids = '';
+		$("[name='customId[]']").each(
+			function()
+			{
+				if ($(this).attr("checked"))
+				{
+					ids += $(this).attr("value")+",";
+				}
+			}
+		);
+		if (ids)
+		{
+			ids = ids.substring(0, ids.length - 1);
+			$('#customDelete').attr('href', "__URL__/delete/id/"+ids+"/navTabId/{$Think.const.MODULE_NAME}");
+		}		
+    }); 
+}
+);
+
+</script>
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="name" value="{$_REQUEST.name}"/>
+	<input type="hidden" name="telphone1" value="{$_REQUEST.telphone1}"/>
+	<input type="hidden" name="cityName" value="{$_REQUEST.cityName}"/>
+	<input type="hidden" name="provinceID" value="{$_REQUEST.provinceID}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>客户姓名：</label>
+					<input type="text" name="name" value="{$_REQUEST.name}" size="10"/>					
+				</li>
+				<li>
+					<label>手机：</label>
+					<input type="text"  maxlength="20" name="telphone1" value="{$_REQUEST.telphone1}" size="12"/>
+				</li>
+				<li>
+					<label>城市：</label>
+					<input type="text" maxlength="20" name="cityName" value="{$_REQUEST.cityName}" size="10"/>
+				</li>
+				<li >
+					<label>省份：</label>
+					<select name="provinceID">
+						<option value="">--请选择--</option>
+					<volist name="ProvinceList" id="ProvinceVo">
+						<option <eq name="_REQUEST.provinceID" value="$ProvinceVo.id" >selected</eq> value="{$ProvinceVo.id}">{$ProvinceVo.name}</option>
+					</volist>
+					</select>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="__URL__/add" target="dialog" width="550" height="400" mask="true"><span>新增</span></a></li>
+				<li><a class="edit" href="__URL__/edit/id/{id}" target="dialog" width="550" height="400"  mask="true" warn="请选择一条记录"><span>编辑</span></a></li>
+				
+				<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<li><a class="delete" id="customForerverDelete" href="__URL__/foreverdelete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？"><span>彻底删除</span></a></li>
+				<else />
+				<li><a class="delete" id="customDelete" href="__URL__/delete/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="ajaxTodo" title="你确定要删除吗？"><span>删除</span></a></li>
+				</if>
+				
+				<li><a class="icon" href="__URL__/export/{$searchStr}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank"><span>导出</span></a></li>	
+				<li><a class="icon" href="__URL__/detail/id/{id}/navTabId/{$Think.const.MODULE_NAME}" target="dialog" width="550" height="400" mask="true"  warn="请选择一条记录"><span>详细</span></a></li>
+				<li>
+					<form method="post" action="__URL__/import/navTabId/{$Think.const.MODULE_NAME}" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this);">
+						<label>客户数据选择：</label>
+						<input name="customExcelData" type="file" />
+						<button type="submit">导入</button>
+					</form>
+				</li>
+			</ul>
+		</div>
+
+		<table class="table" width="100%" layoutH="140">
+			<thead>
+			<tr>
+				<th width="30"><input type="checkbox" group="customId[]" class="checkboxCtrl"></th>
+				<th width="65">业务经理</th>
+				<th width="65">客户姓名</th>				
+				<th width="80">手机</th>				
+				<th width="80">电话</th>				
+				<th width="80">备用电话</th>				
+				<th width="80">传真</th>				
+				<th width="45">省份</th>
+				<th width="70">所属县市区</th>
+				<th width="60">老客户</th>
+				<th width="100">单位/学校</th>
+				<th width="120">地址</th>
+				<th width="70">邮编</th>
+				<th width="65">收货地址</th>
+				<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+				<th width="60">状态</th>
+				</if>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td><input name="customId[]" value="{$vo.id}" type="checkbox"></td>
+					<td>{$vo.employeeName}</td>
+					<td>{$vo.customName}</td>					
+					<td>{$vo.telphone1}</td>					
+					<td>{$vo.telphone2}</td>	
+					<td>{$vo.telphone3}</td>	
+					<td>{$vo.fax}</td>	
+					<td>{$vo.provinceName}</td>
+					<td>{$vo.cityName}</td>
+					<td>
+						<eq name="vo['isOldClient']" value="1" >
+						是
+						<else/>
+						否
+						</eq>
+					</td>
+					<td>{$vo.customUnitName|msubstr=0,10}</td>
+					<td>{$vo.address|msubstr=0,10}</td>
+					<td>{$vo.postCode}</td>
+					<td><a href="__APP__/CustomGoods/index/customId/{$vo.id}" target="navTab" rel="CustomGoods" mask="true" width="500" height="550" title="{$vo.customName} 收货地址 ">详细信息</td></td>
+		
+					<if condition="($roleEname eq 'admin') OR ($roleEname eq 'customCenterWorker')">
+					<td><if condition="($vo.status neq '-1')">正常<else/><a callback="navTabAjaxMenu" target="ajaxTodo" href="__URL__/recycle/id/{$vo.id.}/navTabId/{$Think.const.MODULE_NAME}"><font color="red">还原</font></a></if></td>
+					</if>
+
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

@@ -1,0 +1,233 @@
+<script language="javascript">
+$(function()
+{
+	$(".customClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    });
+
+	$(".magazineClear").click(function()
+	{ 
+		$(this).parent(".unitBox").children("input").each(
+			function()
+			{
+				$(this).attr("value", "");
+			}
+		);		
+    });
+
+    $("#postCode").change(function(){ 
+        getTermSelectVal(); 
+    });
+
+	$("#month").change(function(){ 
+        getTermSelectVal(); 
+    });
+
+	$("#year").change(function(){ 
+        getTermSelectVal(); 
+    });
+});
+
+function getTermSelectVal()
+{ 
+	$.getJSON(
+		"__URL__/getSelect/type/1/postCode/"+$("#postCode").val() + "/year/" + $("#year").val() + "/month/" + $("#month").val() ,
+		function(json)
+		{         
+			var termID = $("#termID");         
+			$("option",termID).remove();   
+			$.each(json,function(index,array)
+			{             
+			
+				var option = "<option value='"+array['id']+"'>"+array['title']+"</option>";             
+				termID.append(option);         
+			});     
+		}
+	); 
+} 
+
+</script>
+
+<form id="pagerForm" action="__URL__" method="post">
+	<input type="hidden" name="pageNum" value="1"/>
+	<input type="hidden" name="beginTime" value="{$_REQUEST.beginTime}"/>
+	<input type="hidden" name="endTime" value="{$_REQUEST.endTime}"/>
+	<input type="hidden" name="postCode" value="{$_REQUEST.postCode}"/>
+	<input type="hidden" name="month" value="{$_REQUEST.month}"/>
+	<input type="hidden" name="customID" value="{$_REQUEST.customID}"/>
+	<input type="hidden" name="termID" value="{$_REQUEST.termID}"/>
+	<input type="hidden" name="year" value="{$_REQUEST.year}"/>
+	<input type="hidden" name="orderID" value="{$_REQUEST.orderID}"/>
+	<input type="hidden" name="batch" value="{$_REQUEST.batch}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="__URL__" method="post">
+		<input type="hidden" name="pageNum" value="1"/>
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>					
+					<label>开始日期：</label>
+					<input type="text" name="beginTime" class="date" readonly="true" value="{$_REQUEST.beginTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li>					
+					<label>结束日期：</label>
+					<input type="text" name="endTime" class="date" readonly="true" value="{$_REQUEST.endTime}" size="10"/>
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>客户名称：</label>
+					<input name="customID" value="{$_REQUEST['customID']}" type="hidden">
+					<input name="customName" value="{$_REQUEST['customName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/CustomSelect/index" lookupGroup="" lookupName="customID">查找</a>&nbsp;&nbsp;
+					<a class="customClear" href="#">清空</a>
+				</li>
+				<li  class="unitBox" style="width:240px">
+					<label>报刊名称：</label>
+					<input name="postCode" value="{$_REQUEST['postCode']}" type="hidden">
+					<input name="magazineName" value="{$_REQUEST['magazineName']}" size="6" type="text" readonly="readonly"/>
+					<a class="btnLook" href="__APP__/MagazineSelect/index" lookupGroup="" lookupName="magazineID">查找</a>&nbsp;&nbsp;
+					<a class="magazineClear" href="#">清空</a>					
+				</li>
+				<li>
+					<label>年份：</label>
+					<input type="text" name="year" value="{$_REQUEST.year}" size="10" id="year"/>
+				</li>
+				<li>
+					<label>月份：</label>
+					<select name="month" id="month">
+						<option value="">--请选择--</option>	
+						<option value="1" <eq name="_REQUEST.month" value='1'>selected</eq> >一月</option>
+						<option value="2" <eq name="_REQUEST.month" value='2'>selected</eq> >二月</option>
+						<option value="3" <eq name="_REQUEST.month" value='3'>selected</eq> >三月</option>
+						<option value="4" <eq name="_REQUEST.month" value='4'>selected</eq> >四月</option>
+						<option value="5" <eq name="_REQUEST.month" value='5'>selected</eq> >五月</option>
+						<option value="6" <eq name="_REQUEST.month" value='6'>selected</eq> >六月</option>
+						<option value="7" <eq name="_REQUEST.month" value='7'>selected</eq> >七月</option>
+						<option value="8" <eq name="_REQUEST.month" value='8'>selected</eq> >八月</option>
+						<option value="9" <eq name="_REQUEST.month" value='9'>selected</eq> >九月</option>
+						<option value="10" <eq name="_REQUEST.month" value='10'>selected</eq> >十月</option>
+						<option value="11" <eq name="_REQUEST.month" value='11'>selected</eq> >十一月</option>
+						<option value="12" <eq name="_REQUEST.month" value='12'>selected</eq> >十二月</option>
+					</select>
+				</li>
+				<li>
+					<label>期数：</label>
+					<select name="termID" id="termID">
+						<option value="">--请选择--</option>					
+					</select>
+						
+					</select>
+				</li>
+
+				<li style="width:250px">
+					<label>订单编号：</label>
+					<input type="text" name="orderID"  value="{$_REQUEST.orderID}" size="20"/>
+				</li>
+				<li style="width:200px">
+					<label>批次：</label>
+					<input type="text" name="batch"  value="{$_REQUEST.batch}" size="10"/>
+				</li>
+				
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="submit">查询</button>
+							</div>
+						</div>
+						<div class="buttonActive">
+							<div class="buttonContent">
+								<button type="reset">条件重置</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+
+	<div class="pageContent">
+
+		<div class="panelBar">			
+			<ul class="toolBar">
+				<li><a class="icon" href="__URL__/export/{$SearchSql}pageNum/{$currentPage}/navTabId/{$Think.const.MODULE_NAME}" mask="true" target="_blank" ><span>导出</span></a></li>					
+			</ul>
+		</div>
+
+		<table class="table" width="2000" layoutH="180" id="PrintList">
+			<thead>
+			<tr>
+				<th width="180">订单编号</th>
+				<th width="80">批次</th>
+				<th width="120">报刊名称</th>
+				<th width="80">期数</th>
+				<th width="100">收货人</th>
+				<th width="120">收货人电话</th>
+				<th width="80">审核状态</th>
+				<th width="100">审核时间</th>				
+				<th width="80">派送状态</th>
+				<th width="120">派送时间</th>
+				<th width="80">接收状态</th>
+				<th width="120">接收时间</th>
+				<th width="80">分配状态</th>
+				<th width="120">分配时间</th>
+				<th width="80">打印状态</th>
+				<th width="120">打印时间</th>
+				<th width="80">质检员</th>
+				<th width="120">质检时间</th>
+				<th width="80">票号</th>
+				<th width="100">发货方式</th>
+			</tr>
+			</thead>
+			<tbody>
+			<volist id="vo" name="list">
+				<tr target="id" rel="{$vo.id}">
+					<td>{$vo.contractID}</td>
+					<td>{$vo.batch}</td>
+					<td>{$vo.magazineName}</td>
+					<td>{$vo.termName}</td>       
+					<td>{$vo.recPeople}</td>
+					<td>{$vo.recTelphone}</td>
+					<td><if condition="$vo.isChecked eq 1">已审<elseif  condition="$vo.isChecked eq 2"/>未保存<else />未审</if></td>
+					<td><if condition="$vo.checkTime neq 0">{$vo.checkTime|date='Y-m-d H:i', ###}</if></td>
+					<td><if condition="$vo.isSend eq 1">已派送<else />未派送</if></td>
+					<td><if condition="$vo.sendTime neq 0">{$vo.sendTime|date='Y-m-d H:i', ###}</if></td>
+					<td><if condition="$vo.isReceive eq 1">已接收<else />未接收</if></td>
+					<td><if condition="$vo.receiveTime neq 0">{$vo.receiveTime|date='Y-m-d H:i', ###}</if></td>
+					<td><if condition="$vo.isCheckOut eq 1">已分配<else />未分配</if></td>
+					<td><if condition="$vo.checkOutTime neq 0">{$vo.checkOutTime|date='Y-m-d H:i', ###}</if></td>
+					<td><if condition="$vo.isPrintCheckOut eq 1">已打印<else />未打印</if></td>
+					<td><if condition="$vo.printCheckOutTime neq 0">{$vo.printCheckOutTime|date='Y-m-d H:i', ###}</if></td>
+					<td>{$vo.checkID|get_employee_name}</td>
+					<td><if condition="$vo.checkDate neq 0">{$vo.checkDate| date='Y-m-d H:i', ###}</if></td>
+					<td>{$vo.sendGoodsID}</td>
+					<td>{$vo.sendGoodsTypeName}</td>
+				</tr>
+			</volist>
+			</tbody>
+		</table>
+
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$totalCount}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+		</div>
+
+	</div>
+	
+</div>
+

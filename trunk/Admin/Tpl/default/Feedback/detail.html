@@ -1,0 +1,62 @@
+﻿<div class="page">
+	<div class="pageContent">
+	
+	<form method="post" action="__URL__/index/navTabId/{$Think.const.MODULE_NAME}" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">			
+			<div class="unit">
+				<label>客户：</label>
+				<label>{$vo.customID|get_custom_name}</label>
+			</div>
+			<div class="unit">
+				<label>联系人：</label>
+				<label>{$vo.contactPerson}</label>
+			
+				<label>电话号码：</label>
+				<label>{$vo.tel}</label>
+			</div>
+               <div class="unit">
+				<label>报刊：</label>
+				<label>{$vo.postCode|get_magazine_name}</label>
+			</div>
+			<div class="unit">
+				<label>年度：</label>
+				<label>{$vo.year}</label>
+			
+				<label>月份：</label>
+				<label>{$vo.month}</label>
+			</div>
+			<div class="unit">
+				<label>期数：</label>
+				<label>{$vo.term}</label>
+			</div>
+			<div class="unit">
+				<label>反馈内容：</label>
+				<label>{$vo.content}</label>
+			</div>
+			<div class="unit">
+				<label>处理结果：</label>
+				<label>{$vo.result}</label>
+			</div>
+			<div class="unit">
+			<label>处理人：</label>
+				<label>{$vo.resultPersonID|get_employee_name}</label>
+				<label>处理时间：</label>	
+				<label>{$vo.reslutTime|date='Y-m-d', ###}</label>
+			</div>
+			<div class="unit">
+				<label>备注：</label>
+				<label>{$vo.memo}</label>
+			</div>		
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">确定</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+	</div>
+</div>
+
+
