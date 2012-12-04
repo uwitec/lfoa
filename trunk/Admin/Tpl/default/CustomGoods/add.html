@@ -67,20 +67,19 @@ function getGoodsSendTypeInfo()
 				<label>所属县市区：</label>
 				<input type="text" name="cityName" size="30" maxlength="150"/>
 			</div>
-			<div class="unit">
+			<div class="unit">			
 				<label>发货类型：</label>
-				<select id="sendSortID">
+				<select name="sendSortID" id="sendSortID">
 						<option value="">--请选择--</option>
-					<volist name="SendSortList" id="SendSortVo">
-						<option value="{$SendSortVo.id}">{$SendSortVo.name}</option>
+					<volist name="SendGoodsSortList" id="SendGoodsSortVo">
+						<option value="{$SendGoodsSortVo.id}">{$SendGoodsSortVo.name}</option>
 					</volist>
 				</select>
-			
 				<label>发货方式：</label>
-				<select name="sendSortID" id="sendTypeID">
+				<select name="sendTypeID"  id="sendTypeID">
 						<option value="">--请选择--</option>
-					<volist name="SendGoodsTypeList" id="SendGoodsTypeVo">
-						<option value="{$SendGoodsTypeVo.id}">{$SendGoodsTypeVo.name}</option>
+					<volist name="SendGoodsTypeList" id="SendTypeVo">
+						<option value="{$SendTypeVo.id}">{$SendTypeVo.name}</option>
 					</volist>
 				</select>
 			</div>

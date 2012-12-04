@@ -30,7 +30,7 @@
 				<th width="80">地址</th>
 				<th width="65">邮编</th>
 				<th width="85">付款人</th>
-				
+				<th width="85">发货类型</th>
 				<th width="85">发货方式</th>
 				<th width="85">发货周期</th>
 				<th width="120">单位/学校</th>
@@ -53,6 +53,8 @@
 					<td width="80">{$vo.address|msubstr=0,10}</td>
 					<td width="65">{$vo.zipCode}</td>
 					<td width="75">{$vo.payName}</td>					
+          
+					<td width="85">{$vo.sendSortName}</td>
 					<td width="85">{$vo.sendTypeName}</td>
 					<td width="85">{$vo.sendCyleName}</td>
 					<td width="120">{$vo.customUnitName}</td>

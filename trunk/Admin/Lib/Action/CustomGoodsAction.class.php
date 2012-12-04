@@ -30,6 +30,7 @@ class CustomGoodsAction extends CommonAction
 				custom_goods.cityName as cityName, 
 				province.name as provinceName, 
 				send_goods_type.name as sendTypeName,
+				send_goods_sort.name as sendSortName,
 				send_order_cyle.name as sendCyleName,
 				custom_unit.name as customUnitName,
 				custom_goods.isSchool as isSchool,
@@ -51,7 +52,8 @@ class CustomGoodsAction extends CommonAction
 			join('tb_custom custom on custom.id = custom_goods.customID')->
 			join('tb_province province on province.id = custom_goods.provinceID')->
 			join('tb_custom_unit custom_unit on custom_unit.id = custom_goods.schoolID')->
-			join('tb_send_goods_type send_goods_type on send_goods_type.id = custom_goods.sendSortID')->
+			join('tb_send_goods_type send_goods_type on send_goods_type.id = custom_goods.sendTypeID')->
+			join('tb_send_goods_sort send_goods_sort on send_goods_sort.id = custom_goods.sendSortID')->
 			join('tb_send_order_cyle send_order_cyle on send_order_cyle.id = custom_goods.sendOrderCyleID');
 	}
 
@@ -149,7 +151,7 @@ class CustomGoodsAction extends CommonAction
         $ProvinceList      = $Province->field('id, name')->select();
         $SendOrderCyleList = $SendOrderCyle->field('id, name')->select();
         
-        $this->assign('SendSortList', $SendGoodsSortList);
+        $this->assign('SendGoodsSortList', $SendGoodsSortList);
 		$this->assign('SendGoodsTypeList', $SendGoodsTypeList);
         $this->assign('SchoolList', $CustomUnitList);
         $this->assign('ProvinceList', $ProvinceList);
@@ -174,7 +176,7 @@ class CustomGoodsAction extends CommonAction
         $ProvinceList      = $Province->field('id, name')->select();
         $SendOrderCyleList = $SendOrderCyle->field('id, name')->select();
         
-        $this->assign('SendSortList', $SendGoodsSortList);
+        $this->assign('SendGoodsSortList', $SendGoodsSortList);
 		$this->assign('SendGoodsTypeList', $SendGoodsTypeList);
         $this->assign('SchoolList', $CustomUnitList);
         $this->assign('ProvinceList', $ProvinceList);
@@ -320,6 +322,7 @@ class CustomGoodsAction extends CommonAction
             $HeaderStr .= "付款人" . "\t";
 			$HeaderStr .= "省份" . "\t";
             $HeaderStr .= "所属城市" . "\t";
+             $HeaderStr .= "发货类型" . "\t";
             $HeaderStr .= "发货方式" . "\t";
 			$HeaderStr .= "发货周期" . "\t";
 			$HeaderStr .= "单位" . "\t";
@@ -341,6 +344,7 @@ class CustomGoodsAction extends CommonAction
 				$ContentStr .= $vo['provinceName'] . "\t";
                 $ContentStr .= $vo['cityName'] . "\t";
                 $ContentStr .= $vo['sendTypeName'] . "\t";
+                $ContentStr .= $vo['sendSortName'] . "\t";
 				$ContentStr .= $vo['sendCyleName'] . "\t";
 				$ContentStr .= $vo['customUnitName'] . "\t";
                 if ($vo['isSchool']) {
